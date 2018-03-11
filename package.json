@@ -1,0 +1,44 @@
+{
+  "name": "AKPRO",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Job Portal.",
+  "scripts": {
+    "build": "tsc -p .",
+    "build:watch": "tsc -p . -w",
+    "lite": "lite-server",
+    "prestart": "npm run build",
+    "start": "concurrent \"npm run build:watch\" \"npm run lite\" ",
+    "typings": "typings"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/animations": "^5.2.0",
+    "@angular/common": "^5.2.0",
+    "@angular/compiler": "^5.2.0",
+    "@angular/core": "^5.2.0",
+    "@angular/forms": "^5.2.0",
+    "@angular/http": "^5.2.0",
+    "@angular/platform-browser": "^5.2.0",
+    "@angular/platform-browser-dynamic": "^5.2.0",
+    "@angular/router": "^5.2.0",
+    "@angular/upgrade": "^5.2.8",
+    "angular-in-memory-web-api": "^0.5.4",
+    "core-js": "^2.4.1",
+    "es6-shim": "^0.35.3",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^5.5.6",
+    "systemjs": "^0.21.0",
+    "zone.js": "^0.8.19"
+  },
+  "devDependencies": {
+    "@types/core-js": "^0.9.46",
+    "@types/node": "^9.4.7",
+    "concurrently": "^3.5.1",
+    "lite-server": "^2.3.0",
+    "typescript": "~2.5.3"
+  },
+  "repository": {}
+}

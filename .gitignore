@@ -1,0 +1,12 @@
+node_modules
+*.map
+*.mp4
+app/*.js
+app/*/*.js
+app/*/*/*.js
+app/*/*/*/*.js
+*.jpg
+*.png
+*.ico
+debug.log
+package-lock.json
