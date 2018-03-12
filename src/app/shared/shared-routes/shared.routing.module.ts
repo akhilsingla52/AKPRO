@@ -3,10 +3,16 @@ import { RouterModule, Routes }  from '@angular/router';
 import { XHRBackend, RequestOptions } from '@angular/http';
 
 import { PageNotFoundComponent } from '../PageNotFound/pagenotfound.component';
+import { HeaderComponent } from '../header/header.component';
+
 import { HttpInterceptor } from '../httpInterceptor/httpInterceptor';
 // import { AuthGuard } from '../../user-dashboard/authGuard/authguard.service';
 
 const sharedRoutes: Routes = [
+    {
+        path: 'header',
+        component: HeaderComponent
+    },
     {
         path: '**',
         component: PageNotFoundComponent
@@ -32,5 +38,5 @@ const sharedRoutes: Routes = [
 export class SharedRoutingModule { }
 
 export const sharedComponents = [
-    PageNotFoundComponent
+    PageNotFoundComponent, HeaderComponent
 ];

@@ -3,12 +3,19 @@
   <head>
     <title>AKPRO</title>
     <base href="/">
-    <meta charset="UTF-8">
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	  <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link type="text/css" rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
   </head>
 <body>
   <my-app>Loading ...</my-app>
     
+  <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
   <script src="node_modules/core-js/client/shim.min.js"></script>
   <script src="node_modules/zone.js/dist/zone.js"></script>
   <script src="node_modules/reflect-metadata/Reflect.js"></script>
@@ -23,8 +30,7 @@
         }
       }
     });
-    System.import('app')
-          .then(null, console.error.bind(console));
+    System.import('app').then(null, console.error.bind(console));
   </script>
 </body>
 
