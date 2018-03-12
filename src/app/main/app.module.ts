@@ -13,11 +13,11 @@ import { AdminRoutingModule, adminComponents } from '../admin/admin-routes/admin
     BrowserModule,
     FormsModule, 
     HttpModule,
-    SharedRoutingModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    SharedRoutingModule
   ],
   declarations: [
-    AppComponent, sharedComponents, adminComponents
+    AppComponent, adminComponents, sharedComponents
   ],
  bootstrap: [AppComponent]
 })

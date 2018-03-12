@@ -4,7 +4,7 @@
       'npm:': 'node_modules/'
     },
     map: {
-      app: 'app',
+      'app': 'app',
       '@angular/core':                      'npm:@angular/core/bundles/core.umd.js',
       '@angular/common':                    'npm:@angular/common/bundles/common.umd.js',
       '@angular/compiler':                  'npm:@angular/compiler/bundles/compiler.umd.js',
@@ -20,8 +20,16 @@
       'angular-in-memory-web-api':          'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
     },
     packages: {
-      app: { main: './main/main.js', defaultExtension: 'js' },
-      'rxjs': { defaultExtension: 'js' }
+      app: { 
+        main: './main/main.js', 
+        defaultExtension: 'js', 
+        meta: {
+          './*.js': {
+            loader: 'systemjs-angular-loader.js'
+          }
+        }
+      },
+      rxjs: { defaultExtension: 'js' }
     }
   });
 })(this);

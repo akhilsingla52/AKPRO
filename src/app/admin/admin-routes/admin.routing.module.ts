@@ -7,20 +7,13 @@ import { LoginComponent } from '../login/login.component';
 import { LoginService } from '../login/login.service';
 
 const adminRoutes: Routes = [
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: '',
-        redirectTo: '/login',
-        pathMatch: 'full'
-    }
+    {   path: 'login',  component: LoginComponent   },
+    {   path: '',   redirectTo: '/login',   pathMatch: 'full'   },
 ];
 
 
 @NgModule({
-    imports: [ RouterModule.forRoot(adminRoutes) ],
+    imports: [ RouterModule.forRoot(adminRoutes, {useHash: true}) ],
     providers: [ 
         LoginService
      ],

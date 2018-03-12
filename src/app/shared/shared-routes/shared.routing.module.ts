@@ -15,7 +15,7 @@ const sharedRoutes: Routes = [
 
 
 @NgModule({
-    imports: [ RouterModule.forRoot(sharedRoutes) ],
+    imports: [ RouterModule.forRoot(sharedRoutes, {useHash: true}) ],
     providers: [
         {
             provide: HttpInterceptor,
