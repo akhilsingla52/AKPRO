@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 
 @Component({
@@ -8,8 +9,12 @@ import { LoginService } from './login.service';
 
 export class LoginComponent implements OnInit {
 
-    constructor(private loginService: LoginService) { }
+    constructor(private router:Router, private loginService: LoginService) { }
 
     ngOnInit() {
+    }
+
+    login() {
+        this.router.navigate(['admin']);
     }
 }

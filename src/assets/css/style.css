@@ -1,9 +1,4 @@
 html, body {
-    height:100%;
-    width: 100%;
-    min-width: 300px;
-    min-height: 300px;
-    overflow: auto;
 }
 
 a {
@@ -11,15 +6,11 @@ a {
 }
 
 .app-body {
-    height: 100%;
-    width: 100%;
-    min-width: 300px;
-    background-color: dimgray;
-    color: whitesmoke;
 }
 
 .admin-body {
     margin-top: 3.6em;
+    background-color: dimgray;
 }
 
 .verticalLine {

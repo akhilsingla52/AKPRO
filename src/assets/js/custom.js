@@ -1,6 +1,6 @@
 $(document).ready(function() {
     function setHeight() {
-      windowHeight = $(window).innerHeight() - 50;
+      windowHeight = $(window).innerHeight();
       $('body').css('height', windowHeight);
     };
     setHeight();
