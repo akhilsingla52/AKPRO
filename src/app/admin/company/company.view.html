@@ -11,7 +11,7 @@
                         <h3 class="panel-title">Company </h3>
                     </div>
                     <div class="col col-xs-6 text-right">
-                        <button type="button" class="btn btn-sm btn-primary btn-create" (click)="addCompany()">Add New Company</button>
+                        <button type="button" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#createModel">Add New Company</button>
                     </div>
                 </div>
             </div>
@@ -63,28 +63,17 @@
                 <h1 class="text-center alert alert-info">Add New Company</h1>
             </div>
             <div class="modal-body">
-                <form method="post">
-                    <div class="form-group">
-                        <label for="name" style="display:block;">Image Name(*.jpg)</label>
-                        <input type="text" name="image" class="my-control" placeholder="Image Name With Exension">
+                <form role="form">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Company Name</label>
+                            <input type="text" name="company" class="form-control" placeholder="Enter Company Name" required>
+                        </div>
 
-                        <label class="input-group-btn" style="display:inline;">
-                            <span class="btn btn-primary">
-                                Select Image...
-                                <input type="file" name="file" accept="image/*" style="display: none;">
-                            </span>
-                        </label>
-                        <span class='label label-info ' id="upload-file-info"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name">Company Name</label>
-                        <input type="text" name="company" class="form-control" placeholder="Enter Company Name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="website">Website</label>
-                        <input type="text" name="website" class="form-control" placeholder="Enter Website" required>
+                        <div class="form-group col-md-6">
+                            <label for="website">Website</label>
+                            <input type="text" name="website" class="form-control" placeholder="Enter Website" required>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -93,11 +82,22 @@
                             required></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-success">ADD</button>
+                    <div class="form-group">
+                        <label for="name" class="col-lg-4">Image Name(*.jpg)</label>
+                        <label class="input-group-btn" class="col-lg-8">
+                            <span class="btn btn-primary">
+                                Browse Image...
+                                <input type="file" name="file" accept="image/*" style="display: none;">
+                            </span>
+                        </label>
+                        <input type="text" name="image" class="form-control" placeholder="Image Name With Exension">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">ADD</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -27,7 +27,7 @@
     "@angular/upgrade": "^5.2.8",
     "angular-font-awesome": "^3.1.2",
     "angular-in-memory-web-api": "^0.5.4",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "es6-shim": "^0.35.3",
     "font-awesome": "^4.7.0",
