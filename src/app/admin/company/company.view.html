@@ -40,10 +40,10 @@
                             <td></td>
                             <td></td>
                             <td align='center'>
-                                <a class='btn btn-default'>
+                                <a class='btn btn-primary text-white' data-toggle="modal" data-target="#updateModel">
                                     <em class='fa fa-pencil'></em>
                                 </a>
-                                <a class='btn btn-danger'>
+                                <a class='btn btn-danger text-white'>
                                     <em class='fa fa-trash'></em>
                                 </a>
                             </td>
@@ -59,8 +59,8 @@
 <div class="modal fade" id="createModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="text-center alert alert-info">Add New Company</h1>
+            <div class="modal-header alert-info">
+                <h1 class="mx-auto">Add New Company</h1>
             </div>
             <div class="modal-body">
                 <form role="form">
@@ -83,14 +83,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name" class="col-lg-4">Image Name(*.jpg)</label>
-                        <label class="input-group-btn" class="col-lg-8">
-                            <span class="btn btn-primary">
-                                Browse Image...
-                                <input type="file" name="file" accept="image/*" style="display: none;">
-                            </span>
-                        </label>
-                        <input type="text" name="image" class="form-control" placeholder="Image Name With Exension">
+                        <label for="name">Image Name(*.jpg)</label>
+                        <div class="form-row">
+                            <input type="text" name="image" class="form-control col-md-7" placeholder="Image Name With Exension">
+                            <label class="input-group-btn" class="col-md-4 my-1">
+                                <span class="btn btn-primary">
+                                    Browse Image...
+                                    <input type="file" name="file" accept="image/*" style="display: none;">
+                                </span>
+                            </label>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -107,12 +109,30 @@
 <div class="modal fade" id="updateModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="text-center alert alert-info">Update Company</h1>
+            <div class="modal-header alert-info">
+                <h1 class="mx-auto">Update Company</h1>
             </div>
             <div class="modal-body">
-                <form method="post">
+                <form >
                     <input type="hidden" name="id">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name">Company Name</label>
+                            <input type="text" name="company" class="form-control" placeholder="Enter Company Name" required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="website">Website</label>
+                            <input type="text" name="website" class="form-control" placeholder="Enter Website" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <textarea name="description" class="form-control custom-control" rows="3" style="resize: none" placeholder="Enter Description "
+                            required></textarea>
+                    </div>
 
                     <div class="form-group">
                         <label for="image">Image Name</label>
@@ -120,27 +140,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name">Company Name</label>
-                        <input type="text" name="company" class="form-control" placeholder="Enter Company Name" required>
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
-
-                    <div class="form-group">
-                        <label for="website">Website</label>
-                        <input type="text" name="website" class="form-control" placeholder="Enter Website" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Description">Description</label>
-                        <textarea name="description" class="form-control custom-control" rows="3" style="resize:none" placeholder="Enter Description "
-                            required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-success">Update</button>
-                    <button type="submit" class="btn btn-danger">Cancel</button>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

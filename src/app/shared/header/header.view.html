@@ -6,7 +6,7 @@
 
     <!-- Nav -->
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item active" data-toggle="collapse" data-target="#navbarNav">
                 <a class="nav-link" routerLink="dashboard">
                     <i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
@@ -36,19 +36,62 @@
                     <i class="fa fa-fw fa-pencil"></i> Tests</a>
             </li>
         </ul>
-    </div>
 
-    <!-- Top Menu Items -->
-    <div class="btn-group">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user" style="margin-right:0.3em"></i> Admin
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" routerLink="changePassword">
-                <i class="fa fa-fw fa-envelope"></i> Change Password</button>
-            <div class="dropdown-divider"></div>
-            <button class="dropdown-item" routerLink="logout">
-                <i class="fa fa-fw fa-power-off"></i> Log Out</button>
+        <!-- Top Menu Items -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user" style="margin-right:0.3em"></i> Admin
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" data-toggle="modal" data-target="#changePassword">
+                    <i class="fa fa-fw fa-envelope"></i> Change Password</button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" (click)="logout()">
+                    <i class="fa fa-fw fa-power-off"></i> Log Out</button>
+            </div>
         </div>
     </div>
 </nav>
+
+
+<!-- Update Modal -->
+<div class="modal fade mt-5" id="changePassword" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert-info">
+                <h1 class="mx-auto">Change Password</h1>
+            </div>
+
+            <div class="modal-body">
+                <div style="display:none" id="login_alert" class="alert alert-danger col-sm-12"></div>
+
+                <form>
+                    <input type="hidden" class="form-control" name="user" value="${admin.username }" required>
+
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <input type="password" class="form-control" name="oldPassword" placeholder="Old Password" required>
+                    </div>
+
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <input type="password" class="form-control" name="newPassword" placeholder="New Password" required>
+                    </div>
+                    
+                    <div class="form-group  mt-4">
+                        <input class="btn btn-success" type="submit" value="Submit" />
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

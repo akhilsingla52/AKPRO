@@ -9,11 +9,14 @@ a {
 }
 
 .admin-body {
-    margin-top: 3.6em;
-    background-color: dimgray;
+    margin-top: 5rem;
 }
 
-.dropdown-menu-right {
-    right: 0;
-    left: auto;
+@media (min-width: 992px) {
+    .dropdown-menu-right {
+        right: 0;
+        left: auto;
+    }
 }
+
+
