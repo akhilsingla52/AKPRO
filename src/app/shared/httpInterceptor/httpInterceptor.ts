@@ -5,6 +5,7 @@ import {
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
+import { APP_URL } from '../utils/Const';
 
 @Injectable()
 export class HttpInterceptor extends Http {
@@ -71,27 +72,27 @@ export class HttpInterceptor extends Http {
  }
 
  getFullUrl(url: string) {
-     //return 'http://localhost:3000' + url;
-     return url;
+     return APP_URL + url;
+     //return url;
  }
 
  requestOptions(options: RequestOptionsArgs) {
     if (options == null) {
       options = new RequestOptions();
     }
-    if (options.headers == null) {
-        if(localStorage.getItem("admin")=="administrator") {
-            options.headers = new Headers({
-                'userrole': JSON.parse(localStorage.getItem('userProfile')).role,
-                'flag': 1
-            });
-        } else {
-            options.headers = new Headers({
-                'userrole': JSON.parse(localStorage.getItem('userProfile')).role,
-                'flag': 0
-            });
-        }    
-    }
+    // if (options.headers == null) {
+    //     if(localStorage.getItem("admin")=="administrator") {
+    //         options.headers = new Headers({
+    //             'userrole': JSON.parse(localStorage.getItem('userProfile')).role,
+    //             'flag': 1
+    //         });
+    //     } else {
+    //         options.headers = new Headers({
+    //             'userrole': JSON.parse(localStorage.getItem('userProfile')).role,
+    //             'flag': 0
+    //         });
+    //     }    
+    // }
 
     return options;
  }
