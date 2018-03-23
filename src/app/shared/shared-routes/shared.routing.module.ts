@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes }  from '@angular/router';
-import { XHRBackend, RequestOptions } from '@angular/http';
 
 import { PageNotFoundComponent } from '../PageNotFound/pagenotfound.component';
 import { HeaderComponent } from '../header/header.component';
 
-import { HttpInterceptor } from '../httpInterceptor/httpInterceptor';
+import { MyHttpInterceptor } from '../httpInterceptor/MyHttpInterceptor';
 // import { AuthGuard } from '../../user-dashboard/authGuard/authguard.service';
 
 const sharedRoutes: Routes = [
@@ -24,12 +24,9 @@ const sharedRoutes: Routes = [
     imports: [ RouterModule.forRoot(sharedRoutes, {useHash: true}) ],
     providers: [
         {
-            provide: HttpInterceptor,
-            useFactory:
-            (backend: XHRBackend, defaultOptions: RequestOptions) => {
-                return new HttpInterceptor(backend, defaultOptions);
-            },
-            deps: [XHRBackend, RequestOptions]
+            provide: HTTP_INTERCEPTORS,
+            useClass: MyHttpInterceptor,
+            multi: true
         }
      ],
     exports: [ RouterModule ]

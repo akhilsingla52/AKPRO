@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
-import { HttpInterceptor } from '../../shared/httpInterceptor/httpInterceptor';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable()
 export class QuestionService {
  
-    constructor(private http: HttpInterceptor) { }
+    constructor(private http: HttpClient) { }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);

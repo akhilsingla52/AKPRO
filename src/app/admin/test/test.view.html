@@ -28,17 +28,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngIf="examDetails.length == 0">
                             <td colspan="6">No Test to Display</td>
                         </tr>
 
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let exam of examDetails; let i = index">
+                            <td>{{exam.name}}</td>
+                            <td>{{exam.email}}</td>
+                            <td>{{exam.attempt}}</td>
+                            <td>{{exam.right}}</td>
+                            <td>{{exam.marks}}</td>
+                            <td>{{exam.date}}</td>
                         </tr>
                     </tbody>
                 </table>

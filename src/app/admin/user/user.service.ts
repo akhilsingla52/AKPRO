@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-
-import { HttpInterceptor } from '../../shared/httpInterceptor/httpInterceptor';
-
 
 @Injectable()
 export class UserService {
  
-    constructor(private http: HttpInterceptor) { }
+    constructor(private http: HttpClient) { }
 
     getAllUser(){
         return this.http.get(`user/userList`)
             .toPromise()
-            .then( res => res.json() )
-            .catch(this.handleError)
+            .then(res => res)
+            .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {

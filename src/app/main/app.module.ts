@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -9,16 +9,16 @@ import { SharedRoutingModule, sharedComponents } from '../shared/shared-routes/s
 import { AdminRoutingModule, adminComponents } from '../admin/admin-routes/admin.routing.module';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule, 
-    HttpModule,
-    AdminRoutingModule,
-    SharedRoutingModule
-  ],
   declarations: [
     AppComponent, adminComponents, sharedComponents
   ],
- bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    AdminRoutingModule,
+    SharedRoutingModule
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

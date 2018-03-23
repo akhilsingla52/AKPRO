@@ -19,4 +19,12 @@ a {
     }
 }
 
+.text-ellipsis {
+    display:inline-block;
+    width:12.5rem;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+
 

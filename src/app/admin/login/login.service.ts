@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
-import { HttpInterceptor } from '../../shared/httpInterceptor/httpInterceptor';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable()
 export class LoginService {
  
-    constructor(private http: HttpInterceptor) { }
+    constructor(private http: HttpClient) { }
 
     // getAllUserQuiz(){
     //     return this.http.get(`api/getAllUserQuiz`)

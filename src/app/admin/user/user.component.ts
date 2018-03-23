@@ -24,6 +24,6 @@ export class UserComponent implements OnInit {
             .then(res => {
                 swal.close();
                 this.userList = res.data as UserDetails[];
-            });
+        });
     }
 }

@@ -2,145 +2,126 @@
     <div class="col-lg-12">
         <h1 class="text-center alert alert-info">Company Details</h1>
     </div>
+</div>
+<div class="row">
+    <div class="col col-xs-6">
+        <h3 class="panel-title">Company </h3>
+    </div>
+    <div class="col col-xs-6 text-right">
+        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUpdateModel" (click)="clear();model_header='Add'">Add New Company</button>
+    </div>
+</div>
 
-    <div class="col-md-12">
-        <div class="panel panel-default panel-table">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col col-xs-6">
-                        <h3 class="panel-title">Company </h3>
-                    </div>
-                    <div class="col col-xs-6 text-right">
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#createModel">Add New Company</button>
-                    </div>
-                </div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-list">
+        <thead>
+            <tr>
+                <th>Image Name</th>
+                <th>Image</th>
+                <th>Company Name</th>
+                <th>Website</th>
+                <th>Description</th>
+                <th>Created Date</th>
+                <th>Modified Date</th>
+                <th class="text-center">
+                    <em class="fa fa-cog"></em>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="companies.length == 0">
+                <td colspan="8">No Company to Display</td>
+            </tr>
+
+            <tr *ngFor="let company of companies; let i = index">
+                <td>{{company.image_url}}</td>
+                <td><img [src]="'data:image/png;base64,'+company.image_data" height="100px" /></td>
+                <td>{{company.company_name}}</td>
+                <td>{{company.website}}</td>
+                <td>{{company.created_date}}</td>
+                <td>{{company.modified_date}}</td>
+                <td>
+                    <span class="text-ellipsis">{{company.description}}</span>
+                    <a class='text-primary' data-toggle="modal" data-target="#readMore" (click)="description=company.description">Read More</a>
+                </td>
+                <td class="text-center">
+                    <a class='btn btn-primary text-white' data-toggle="modal" data-target="#addUpdateModel" (click)="model_header='Update';getCompanyById(company.id);">
+                        <em class='fa fa-pencil'></em>
+                    </a>
+                    <a class='btn btn-danger text-white' (click)="deleteCompanyById(company.id)">
+                        <em class='fa fa-trash'></em>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Read More -->
+<div class="modal fade" id="readMore" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Company Description</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
-            <div class="panel-body">
-                <table class="table table-striped table-bordered table-list">
-                    <thead>
-                        <tr>
-                            <th>Image Name</th>
-                            <th>Company Name</th>
-                            <th>Website</th>
-                            <th>Description</th>
-                            <th class="text-center">
-                                <em class="fa fa-cog"></em>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="4">No Company to Display</td>
-                        </tr>
-
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="text-center">
-                                <a class='btn btn-primary text-white' data-toggle="modal" data-target="#updateModel">
-                                    <em class='fa fa-pencil'></em>
-                                </a>
-                                <a class='btn btn-danger text-white'>
-                                    <em class='fa fa-trash'></em>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="modal-body">
+                <p>{{description}}</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Create Modal -->
-<div class="modal fade" id="createModel" role="dialog">
+<!-- Create Update Modal -->
+<div class="modal fade" id="addUpdateModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header alert-info">
-                <h1 class="mx-auto">Add New Company</h1>
+                <h1 class="mx-auto">{{model_header}} Company</h1>
             </div>
             <div class="modal-body">
-                <form role="form">
+                <form role="form" (ngSubmit)="createUpdateCompany()">
+                    <input type="hidden" name="id" [ngModel]="company.id">
+
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="name">Company Name</label>
-                            <input type="text" name="company" class="form-control" placeholder="Enter Company Name" required>
+                            <input type="text" name="company" class="form-control" placeholder="Enter Company Name" [(ngModel)]="company.company_name"
+                                required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="website">Website</label>
-                            <input type="text" name="website" class="form-control" placeholder="Enter Website" required>
+                            <input type="text" name="website" class="form-control" placeholder="Enter Website" [(ngModel)]="company.website" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="Description">Description</label>
-                        <textarea name="description" class="form-control custom-control" rows="3" style="resize: none" placeholder="Enter Description "
-                            required></textarea>
+                        <textarea name="description" class="form-control custom-control" rows="3" style="resize: none" placeholder="Enter Description"
+                        [(ngModel)]="company.description" required></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="name">Image Name(*.jpg)</label>
-                        <div class="form-row">
-                            <input type="text" name="image" class="form-control col-md-7" placeholder="Image Name With Exension">
-                            <label class="input-group-btn" class="col-md-4 my-1">
-                                <span class="btn btn-primary">
-                                    Browse Image...
-                                    <input type="file" name="file" accept="image/*" style="display: none;">
-                                </span>
-                            </label>
+                        <input type="text" name="image" class="form-control" placeholder="Image Name With Exension" [(ngModel)]="company.image_url">
+                    </div>
+                    <div class="form-group">
+                        <label class="input-group-btn" *ngIf="company.image_data==undefined || company.image_data==''">
+                            <span class="btn btn-primary">
+                                Browse Image...
+                                <input type="file" id="file" accept="image/*" style="display: none;" (change)="imageBase64Code($event.target.files)">
+                            </span>
+                        </label>
+
+                        <div *ngIf="company.image_data!=undefined && company.image_data!=''">
+                            <i class="fa fa-remove position-absolute text-muted bg-light rounded-circle p-1" (click)="company.image_data=''"></i>
+                            <img [src]="'data:image/png;base64,'+company.image_data" height="100px" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">ADD</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Update Modal -->
-<div class="modal fade" id="updateModel" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header alert-info">
-                <h1 class="mx-auto">Update Company</h1>
-            </div>
-            <div class="modal-body">
-                <form role="form">
-                    <input type="hidden" name="id">
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="name">Company Name</label>
-                            <input type="text" name="company" class="form-control" placeholder="Enter Company Name" required>
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="website">Website</label>
-                            <input type="text" name="website" class="form-control" placeholder="Enter Website" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Description">Description</label>
-                        <textarea name="description" class="form-control custom-control" rows="3" style="resize: none" placeholder="Enter Description "
-                            required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="image">Image Name</label>
-                        <input type="text" name="image" class="form-control" placeholder="Enter Image Name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="submit" class="btn btn-success">{{model_header}}</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
