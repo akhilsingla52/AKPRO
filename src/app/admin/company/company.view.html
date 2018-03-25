@@ -35,7 +35,7 @@
 
             <tr *ngFor="let company of companies; let i = index">
                 <td>{{company.image_url}}</td>
-                <td><img [src]="'data:image/png;base64,'+company.image_data" height="100px" /></td>
+                <td><img [src]="appImageUrl+company.image_url" height="100px" /></td>
                 <td>{{company.company_name}}</td>
                 <td>{{company.website}}</td>
                 <td>{{company.created_date}}</td>

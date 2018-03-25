@@ -31,8 +31,15 @@ export class CompanyService {
             .catch(this.handleError);
     }
 
+    updateCompany(company:Company) {
+        return this.http.put(`company/updateCompany`, company)
+            .toPromise()
+            .then(res => res)
+            .catch(this.handleError);
+    }
+
     deleteCompanyById(companyId) {
-        return this.http.delete(`company/deleteCompanyById`+companyId)
+        return this.http.delete(`company/deleteCompanyById/`+companyId)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);

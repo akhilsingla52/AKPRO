@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from './company.service';
 import { Company } from '../../shared/models/Company';
+import { APP_IMAGE_URL } from '../../shared/utils/Const'
 
 declare let swal: any;
 declare var $: any;
@@ -14,10 +15,15 @@ export class CompanyComponent implements OnInit {
     companies: Company[] = [];
     company: Company;
     model_header:string = "";
+    appImageUrl:string = APP_IMAGE_URL;
 
     constructor(private companyService: CompanyService) { }
 
     ngOnInit() { 
+        this.getAllCompanies();
+    }
+
+    getAllCompanies() {
         swal({
             title: 'Loading...'
         });
@@ -72,10 +78,25 @@ export class CompanyComponent implements OnInit {
     }
 
     createUpdateCompany() {
-        this.companyService.addCompany(this.company)
+        swal({
+            title: 'Loading...'
+        });
+        swal.showLoading();
+        if(this.company.id == undefined || this.company.id == 0) {
+            this.companyService.addCompany(this.company)
+                .then(res => {
+                    swal.close();
+                    $('#addUpdateModel').modal('toggle');
+                    this.getAllCompanies();
+            });
+        } else {
+            this.companyService.updateCompany(this.company)
             .then(res => {
                 swal.close();
-        });
+                $('#addUpdateModel').modal('toggle');
+                this.getAllCompanies();
+            });
+        }
     }
 
     deleteCompanyById(companyId) {
@@ -87,7 +108,7 @@ export class CompanyComponent implements OnInit {
         this.companyService.deleteCompanyById(companyId)
             .then(res => {
                 swal.close();
-                this.companies = res.data as Company[];
+                this.getAllCompanies();
         });
     }
 }
