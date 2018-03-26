@@ -35,18 +35,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngIf="jobs.length == 0">
                             <td colspan="8">No Job to Display</td>
                         </tr>
 
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor="let job of jobs; let i = index">
+                            <td>{{job.company_name}}</td>
+                            <td>{{job.location}}</td>
+                            <td>{{job.technology}}</td>
+                            <td>{{job.role}}</td>
+                            <td>{{job.experience}}</td>
+                            <td>{{job.salary}}</td>
+                            <td>{{job.created_date}}</td>
                             <td align='center'>
                                 <a class='btn btn-primary text-white' data-toggle="modal" data-target="#updateModel">
                                     <em class='fa fa-pencil'></em>

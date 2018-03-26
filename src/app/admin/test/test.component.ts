@@ -15,6 +15,10 @@ export class TestComponent implements OnInit {
     constructor(private testService: TestService) { }
 
     ngOnInit() {
+        this.getAllExamDetails();
+    }
+
+    getAllExamDetails() {
         swal({
             title: 'Loading...'
         });

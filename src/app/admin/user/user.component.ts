@@ -15,6 +15,10 @@ export class UserComponent implements OnInit {
     constructor(private userService: UserService) { }
 
     ngOnInit() {
+        this.getAllUser();
+    }
+
+    getAllUser() {
         swal({
             title: 'Loading...'
         });
