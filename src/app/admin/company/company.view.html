@@ -48,7 +48,7 @@
                     <a class='btn btn-primary text-white' data-toggle="modal" data-target="#addUpdateModel" (click)="model_header='Update';getCompanyById(company.id);">
                         <em class='fa fa-pencil'></em>
                     </a>
-                    <a class='btn btn-danger text-white' (click)="deleteCompanyById(company.id)">
+                    <a class='btn btn-danger text-white' (click)="deleteCompanyById(company.id, i)">
                         <em class='fa fa-trash'></em>
                     </a>
                 </td>
@@ -80,7 +80,7 @@
                 <h1 class="mx-auto">{{model_header}} Company</h1>
             </div>
             <div class="modal-body">
-                <form role="form" (ngSubmit)="createUpdateCompany()">
+                <form role="form">
                     <input type="hidden" name="id" [ngModel]="company.id">
 
                     <div class="form-row">
@@ -121,7 +121,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">{{model_header}}</button>
+                        <button type="submit" class="btn btn-success" (click)="createUpdateCompany()">{{model_header}}</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>

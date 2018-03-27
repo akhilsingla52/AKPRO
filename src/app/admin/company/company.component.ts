@@ -99,7 +99,7 @@ export class CompanyComponent implements OnInit {
         }
     }
 
-    deleteCompanyById(companyId) {
+    deleteCompanyById(companyId, index) {
         swal({
             title: 'Loading...'
         });
@@ -107,8 +107,9 @@ export class CompanyComponent implements OnInit {
 
         this.companyService.deleteCompanyById(companyId)
             .then(res => {
+                this.companies.splice(index, 1);
                 swal.close();
-                this.getAllCompanies();
+                //this.getAllCompanies();
         });
     }
 }

@@ -13,7 +13,7 @@
                         <h3 class="panel-title">Job </h3>
                     </div>
                     <div class="col col-xs-6 text-right">
-                        <button type="button" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#createModel">Add New Job</button>
+                        <button type="button" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#jobModel" (click)="openAddModel()">Add New Job</button>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                             <th>Experience</th>
                             <th>Salary</th>
                             <th>Posted On</th>
-                            <th>
+                            <th class="text-center">
                                 <em class="fa fa-cog"></em>
                             </th>
                         </tr>
@@ -48,10 +48,10 @@
                             <td>{{job.salary}}</td>
                             <td>{{job.created_date}}</td>
                             <td align='center'>
-                                <a class='btn btn-primary text-white' data-toggle="modal" data-target="#updateModel">
+                                <a class='btn btn-primary text-white' data-toggle="modal" data-target="#jobModel" (click)="openUpdateModel(job)">
                                     <em class='fa fa-pencil'></em>
                                 </a>
-                                <a class='btn btn-danger text-white'>
+                                <a class='btn btn-danger text-white' (click)="deleteJobById(job.id, i)">
                                     <em class='fa fa-trash'></em>
                                 </a>
                             </td>
@@ -61,105 +61,59 @@
             </div>
 
         </div>
+    </div>
+</div>
 
+<!-- Update Modal -->
+<div class="modal fade" id="jobModel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert-info">
+                <h1 class="mx-auto">{{model_header}} Job</h1>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" name="id" [(ngModel)]="job.id">
 
-        <!-- Create Modal -->
-        <div class="modal fade" id="createModel" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header alert-info">
-                        <h1 class="mx-auto">Add New Job</h1>
+                    <div class="form-group">
+                        <label for="sel1">Select Company:</label>
+                        <select name="companyId" class="form-control" [(ngModel)]="job.company_id">
+                            <option selected disabled value="0">Select Company</option>
+                            <option *ngFor="let company of companies" [value]="company.id">{{company.company_name}}</option>
+                        </select>
                     </div>
-                    <div class="modal-body">
-                        <form role="form">
-                            <div class="form-group">
-                                <label for="sel1">Select Company:</label>
-                                <select name="companyId" class="form-control">
-                                    <option selected disabled>Select Company</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Location">Location</label>
-                                <textarea name="location" class="form-control" rows="3" style="resize:none" placeholder="Enter Location" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="Technology">Technology</label>
-                                <input type="text" name="technology" class="form-control" placeholder="Enter Technology" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Role">Role</label>
-                                <input type="text" name="role" class="form-control" placeholder="Enter Role" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Experience">Experience</label>
-                                <input type="text" name="experience" class="form-control" placeholder="Enter Experience" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Salary">Salary</label>
-                                <input type="number" name="salary" class="form-control" pattern="[0-9]+[.][0-9]{2}" placeholder="Enter Salary" required>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success">ADD</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            </div>
-                        </form>
+                    <div class="form-group">
+                        <label for="Location">Location</label>
+                        <textarea name="location" class="form-control" [(ngModel)]="job.location" rows="3" style="resize:none" placeholder="Enter Location "
+                            required></textarea>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="Technology">Technology</label>
+                        <input type="text" name="technology" class="form-control" [(ngModel)]="job.technology" placeholder="Enter Technology" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Role">Role</label>
+                        <input type="text" name="role" class="form-control" [(ngModel)]="job.role" placeholder="Enter Role" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Experience">Experience</label>
+                        <input type="text" name="experience" class="form-control" [(ngModel)]="job.experience" placeholder="Enter Experience" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Salary">Salary</label>
+                        <input type="number" name="salary" class="form-control" [(ngModel)]="job.salary" pattern="[0-9]+[.][0-9]+" step="0.01" placeholder="Enter Salary"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success" (click)="addUpdateJob()">{{model_header}}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <!-- Update Modal -->
-        <div class="modal fade" id="updateModel" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header alert-info">
-                        <h1 class="mx-auto">Update Job</h1>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <input type="hidden" name="id">
-
-                            <div class="form-group">
-                                <label for="sel1">Select Company:</label>
-                                <select name="companyId" class="form-control">
-                                    <option selected disabled>Select Company</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Location">Location</label>
-                                <textarea name="location" class="form-control" rows="3" style="resize:none" placeholder="Enter Location " required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="Technology">Technology</label>
-                                <input type="text" name="technology" class="form-control" placeholder="Enter Technology" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Role">Role</label>
-                                <input type="text" name="role" class="form-control" placeholder="Enter Role" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Experience">Experience</label>
-                                <input type="text" name="experience" class="form-control" placeholder="Enter Experience" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Salary">Salary</label>
-                                <input type="number" name="salary" class="form-control" pattern="[0-9]+[.][0-9]+" step="0.01" placeholder="Enter Salary"
-                                    required>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success">Update</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
+</div>

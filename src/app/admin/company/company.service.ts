@@ -18,28 +18,28 @@ export class CompanyService {
     }
 
     getCompanyById(companyId) {
-        return this.http.get(`company/getCompanyById/`+companyId)
+        return this.http.get(`company/`+companyId)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);
     }
 
-    addCompany(company:Company) {
-        return this.http.post(`company/createCompany`, company)
+    addCompany(company: Company) {
+        return this.http.post(`company/create`, company)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);
     }
 
-    updateCompany(company:Company) {
-        return this.http.put(`company/updateCompany`, company)
+    updateCompany(company: Company) {
+        return this.http.put(`company/update`, company)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);
     }
 
     deleteCompanyById(companyId) {
-        return this.http.delete(`company/deleteCompanyById/`+companyId)
+        return this.http.delete(`company/delete/`+companyId)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);
