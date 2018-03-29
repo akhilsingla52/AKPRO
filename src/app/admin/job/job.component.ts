@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Company } from '../../shared/models/Company';
 import { JobService } from './job.service';
 import { Job } from '../../shared/models/Job';
-import { Company } from '../../shared/models/Company';
 import { CompanyService } from '../company/company.service';
 
 declare let swal: any;
@@ -64,8 +64,6 @@ export class JobComponent implements OnInit {
                 swal.close();
                 this.companies = res.data as Company[];
         });
-
-        this.clear();
     }
 
     openAddModel() {
@@ -89,14 +87,14 @@ export class JobComponent implements OnInit {
             this.jobService.addJob(this.job)
                 .then(res => {
                     swal.close();
-                    $('#jobModel').modal('toggle');
+                    $('#addUpdateModel').modal('toggle');
                     this.getAllJobs();
             });
         } else {
             this.jobService.updateJob(this.job)
             .then(res => {
                 swal.close();
-                $('#jobModel').modal('toggle');
+                $('#addUpdateModel').modal('toggle');
                 this.getAllJobs();
             });
         }

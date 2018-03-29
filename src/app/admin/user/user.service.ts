@@ -9,7 +9,7 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getAllUser(){
-        return this.http.get(`user/userList`)
+        return this.http.get(`user/getAll`)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);

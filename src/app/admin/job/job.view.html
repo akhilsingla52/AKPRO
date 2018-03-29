@@ -13,7 +13,7 @@
                         <h3 class="panel-title">Job </h3>
                     </div>
                     <div class="col col-xs-6 text-right">
-                        <button type="button" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#jobModel" (click)="openAddModel()">Add New Job</button>
+                        <button type="button" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#addUpdateModel" (click)="openAddModel()">Add New Job</button>
                     </div>
                 </div>
             </div>
@@ -47,8 +47,8 @@
                             <td>{{job.experience}}</td>
                             <td>{{job.salary}}</td>
                             <td>{{job.created_date}}</td>
-                            <td align='center'>
-                                <a class='btn btn-primary text-white' data-toggle="modal" data-target="#jobModel" (click)="openUpdateModel(job)">
+                            <td align='text-center'>
+                                <a class='btn btn-primary text-white' data-toggle="modal" data-target="#addUpdateModel" (click)="openUpdateModel(job)">
                                     <em class='fa fa-pencil'></em>
                                 </a>
                                 <a class='btn btn-danger text-white' (click)="deleteJobById(job.id, i)">
@@ -65,7 +65,7 @@
 </div>
 
 <!-- Update Modal -->
-<div class="modal fade" id="jobModel" role="dialog">
+<div class="modal fade" id="addUpdateModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header alert-info">

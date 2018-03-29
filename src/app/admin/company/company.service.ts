@@ -11,7 +11,7 @@ export class CompanyService {
     constructor(private http: HttpClient) { }
 
     getAllCompanies(){
-        return this.http.get(`company/allCompanies`)
+        return this.http.get(`company/getAll`)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);

@@ -10,7 +10,7 @@ export class TestService {
     constructor(private http: HttpClient) { }
 
     getAllExamDetails(){
-        return this.http.get(`exam/examDetails`)
+        return this.http.get(`exam/getAll`)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Job } from '../../shared/models/Job';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/catch';
-import { Job } from '../../shared/models/Job';
 
 @Injectable()
 export class JobService {
@@ -10,7 +10,7 @@ export class JobService {
     constructor(private http: HttpClient) { }
 
     getAllJobs() {
-        return this.http.get(`job/allJobs`)
+        return this.http.get(`job/getAll`)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);

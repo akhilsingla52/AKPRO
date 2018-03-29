@@ -38,12 +38,12 @@
                 <td><img [src]="appImageUrl+company.image_url" height="100px" /></td>
                 <td>{{company.company_name}}</td>
                 <td>{{company.website}}</td>
-                <td>{{company.created_date}}</td>
-                <td>{{company.modified_date}}</td>
                 <td>
-                    <span class="text-ellipsis">{{company.description}}</span>
+                    <span class="d-inline-block text-truncate description-text">{{company.description}}</span>
                     <a class='text-primary' data-toggle="modal" data-target="#readMore" (click)="description=company.description">Read More</a>
                 </td>
+                <td>{{company.created_date}}</td>
+                <td>{{company.modified_date}}</td>
                 <td class="text-center">
                     <a class='btn btn-primary text-white' data-toggle="modal" data-target="#addUpdateModel" (click)="model_header='Update';getCompanyById(company.id);">
                         <em class='fa fa-pencil'></em>
@@ -81,12 +81,12 @@
             </div>
             <div class="modal-body">
                 <form role="form">
-                    <input type="hidden" name="id" [ngModel]="company.id">
+                    <input type="hidden" name="id" [(ngModel)]="company.id">
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="name">Company Name</label>
-                            <input type="text" name="company" class="form-control" placeholder="Enter Company Name" [(ngModel)]="company.company_name"
+                            <input type="text" name="company_name" class="form-control" placeholder="Enter Company Name" [(ngModel)]="company.company_name"
                                 required>
                         </div>
 

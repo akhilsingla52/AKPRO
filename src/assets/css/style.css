@@ -5,6 +5,10 @@ a {
     text-decoration: none !important;
 }
 
+ol {
+    list-style-position: inside;
+}
+
 .app-body {
 }
 
@@ -18,13 +22,12 @@ a {
         left: auto;
     }
 }
-
-.text-ellipsis {
-    display:inline-block;
+.description-text {
     width:12.5rem;
-    white-space: nowrap;
-    overflow:hidden !important;
-    text-overflow: ellipsis;
+}
+
+.question-options {
+    padding: 0;
 }
 
 
