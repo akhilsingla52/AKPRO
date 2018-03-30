@@ -23,7 +23,8 @@ export class CategoryComponent implements OnInit {
 
     getAllCategories() {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 
@@ -47,7 +48,8 @@ export class CategoryComponent implements OnInit {
 
     getCategoryById(categoryId) {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 
@@ -70,7 +72,8 @@ export class CategoryComponent implements OnInit {
 
     createUpdateCategory() {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
         if (this.category.id == undefined || this.category.id == 0) {
@@ -92,7 +95,8 @@ export class CategoryComponent implements OnInit {
 
     deleteCategoryById(categoryId, index) {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 

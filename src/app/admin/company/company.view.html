@@ -35,7 +35,9 @@
 
             <tr *ngFor="let company of companies; let i = index">
                 <td>{{company.image_url}}</td>
-                <td><img [src]="appImageUrl+company.image_url" height="100px" /></td>
+                <td>
+                    <img [src]="appImageUrl+company.image_url" height="100px" />
+                </td>
                 <td>{{company.company_name}}</td>
                 <td>{{company.website}}</td>
                 <td>
@@ -80,48 +82,75 @@
                 <h1 class="mx-auto">{{model_header}} Company</h1>
             </div>
             <div class="modal-body">
-                <form role="form">
-                    <input type="hidden" name="id" [(ngModel)]="company.id">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+                    <input type="hidden" name="id" formControlName="id">
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="name">Company Name</label>
-                            <input type="text" name="company_name" class="form-control" placeholder="Enter Company Name" [(ngModel)]="company.company_name"
-                                required>
+                            <input class="form-control" type="text" formControlName="company_name" 
+                                    [ngClass]="{
+                                        'is-valid': form.controls.company_name.valid && (form.controls.company_name.dirty || form.controls.company_name.touched),
+                                        'is-invalid': form.controls.company_name.invalid && (form.controls.company_name.dirty || form.controls.company_name.touched)
+                                    }" placeholder="Enter Company Name" required>
+                            <div class="text-danger" *ngIf="form.controls.company_name.invalid && (form.controls.company_name.dirty || form.controls.company_name.touched)">
+                                <p *ngIf="form.controls.company_name.invalid">Please insert company name</p>
+                            </div>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="website">Website</label>
-                            <input type="text" name="website" class="form-control" placeholder="Enter Website" [(ngModel)]="company.website" required>
+                            <input class="form-control" type="text" formControlName="website" 
+                            [ngClass]="{
+                                'is-valid': form.controls.website.valid && (form.controls.website.dirty || form.controls.website.touched),
+                                'is-invalid': form.controls.website.invalid && (form.controls.website.dirty || form.controls.website.touched)
+                            }" placeholder="Enter Website" required>
+                            <div class="text-danger" *ngIf="form.controls.website.invalid && (form.controls.website.dirty || form.controls.website.touched)">
+                                <p *ngIf="form.controls.website.invalid">Please insert website</p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="Description">Description</label>
-                        <textarea name="description" class="form-control custom-control" rows="3" style="resize: none" placeholder="Enter Description"
-                        [(ngModel)]="company.description" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name">Image Name(*.jpg)</label>
-                        <input type="text" name="image" class="form-control" placeholder="Image Name With Exension" [(ngModel)]="company.image_url">
-                    </div>
-                    <div class="form-group">
-                        <label class="input-group-btn" *ngIf="company.image_data==undefined || company.image_data==''">
-                            <span class="btn btn-primary">
-                                Browse Image...
-                                <input type="file" id="file" accept="image/*" style="display: none;" (change)="imageBase64Code($event.target.files)">
-                            </span>
-                        </label>
-
-                        <div *ngIf="company.image_data!=undefined && company.image_data!=''">
-                            <i class="fa fa-remove position-absolute text-muted bg-light rounded-circle p-1" (click)="company.image_data=''"></i>
-                            <img [src]="'data:image/png;base64,'+company.image_data" height="100px" />
+                        <textarea class="form-control" formControlName="description" 
+                        [ngClass]="{
+                            'is-valid': form.controls.description.valid && (form.controls.description.dirty || form.controls.description.touched),
+                            'is-invalid': form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)
+                        }" placeholder="Enter Description" rows="3" style="resize: none" required></textarea>
+                        <div class="text-danger" *ngIf="form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)">
+                            <p *ngIf="form.controls.description.invalid">Please insert description</p>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success" (click)="createUpdateCompany()">{{model_header}}</button>
+                        <label for="name">Image Name(*.jpg)</label>
+                        <input class="form-control" type="text" formControlName="image_url" 
+                        [ngClass]="{
+                            'is-valid': form.controls.image_url.valid && (form.controls.image_url.dirty || form.controls.image_url.touched),
+                            'is-invalid': form.controls.image_url.invalid && (form.controls.image_url.dirty || form.controls.image_url.touched)
+                        }" placeholder="Image Name With Exension" required>
+
+                        <div class="text-danger" *ngIf="form.controls.image_url.invalid && (form.controls.image_url.dirty || form.controls.image_url.touched)">
+                            <p *ngIf="form.controls.image_url.invalid">Please insert image name</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="input-group-btn" *ngIf="form.value.image_data==undefined || form.value.image_data==''">
+                            <span class="btn btn-primary">
+                                Browse Image...
+                                <input type="file" (change)="imageBase64Code($event.target.files)" accept="image/*" style="display: none;"
+                                    required>
+                            </span>
+                        </label>
+                        <div *ngIf="form.value.image_data!=undefined && form.value.image_data!=''">
+                            <i class="fa fa-remove position-absolute text-muted bg-light rounded-circle p-1" (click)="form.value.image_data=''"></i>
+                            <img [src]="'data:image/png;base64,'+form.value.image_data" height="100px" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{model_header}}</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>

@@ -3,6 +3,7 @@ html, body {
 
 a {
     text-decoration: none !important;
+    outline: 0;
 }
 
 ol {

@@ -20,7 +20,8 @@ export class TestComponent implements OnInit {
 
     getAllExamDetails() {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 

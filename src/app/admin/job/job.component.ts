@@ -26,7 +26,8 @@ export class JobComponent implements OnInit {
 
     getAllJobs() {     
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 
@@ -55,7 +56,8 @@ export class JobComponent implements OnInit {
 
     getAllCompanies() {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 
@@ -80,7 +82,8 @@ export class JobComponent implements OnInit {
 
     addUpdateJob() {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
         if(this.job.id == undefined || this.job.id == 0) {
@@ -102,7 +105,8 @@ export class JobComponent implements OnInit {
 
     deleteJobById(jobId, index) {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 

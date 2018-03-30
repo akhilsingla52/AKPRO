@@ -20,7 +20,8 @@ export class UserComponent implements OnInit {
 
     getAllUser() {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 

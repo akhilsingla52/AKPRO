@@ -28,7 +28,8 @@ export class QuestionComponent implements OnInit {
 
     getAllQuestions() {     
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 
@@ -55,7 +56,8 @@ export class QuestionComponent implements OnInit {
 
     getAllCategories() {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 
@@ -86,7 +88,8 @@ export class QuestionComponent implements OnInit {
             this.question.options = options;
         }
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
         if(this.question.id == undefined || this.question.id == 0) {
@@ -108,7 +111,8 @@ export class QuestionComponent implements OnInit {
 
     deleteQuestionById(jobId, index) {
         swal({
-            title: 'Loading...'
+            title: 'Loading...',
+            allowOutsideClick: false
         });
         swal.showLoading();
 
