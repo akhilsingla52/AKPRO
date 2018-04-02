@@ -60,7 +60,7 @@
 </div>
 
 <!-- Read More -->
-<div class="modal fade" id="readMore" role="dialog">
+<div class="modal fade" id="readMore" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -75,14 +75,14 @@
 </div>
 
 <!-- Create Update Modal -->
-<div class="modal fade" id="addUpdateModel" role="dialog">
+<div class="modal fade" id="addUpdateModel" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header alert-info">
                 <h1 class="mx-auto">{{model_header}} Company</h1>
             </div>
             <div class="modal-body">
-                <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+                <form [formGroup]="form" (ngSubmit)="createUpdateCompany()" novalidate>
                     <input type="hidden" name="id" formControlName="id">
 
                     <div class="form-row">

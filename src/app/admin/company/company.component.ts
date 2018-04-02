@@ -50,14 +50,6 @@ export class CompanyComponent implements OnInit {
         });
     }
 
-    onSubmit() {
-        if(this.form.valid) {
-            console.log(this.form);
-            console.log("Form Submitted!", this.form.value);
-            this.form.reset();
-        }
-    }
-
     getAllCompanies() {
         swal({
             title: 'Loading...',
@@ -66,16 +58,16 @@ export class CompanyComponent implements OnInit {
         swal.showLoading();
 
         this.companyService.getAllCompanies()
-            .then(res => {
-                swal.close();
-                this.companies = res.data as Company[];
-        });
+            .then(
+                success => {
+                    swal.close();
+                    this.companies = success.data as Company[];
+                }, error => {
+                    swal.close();
+                }
+            );
 
-        this.clear();
-    }
-
-    clear() {
-        this.form.reset();
+           this.form.reset();
     }
 
     getCompanyById(companyId) {
@@ -99,8 +91,8 @@ export class CompanyComponent implements OnInit {
             var reader  = new FileReader();
             reader.readAsDataURL(file)
             reader.onload = () => {
-                this.form.value.image_url = file.name;
-                this.form.value.image_data = reader.result.split(',')[1];
+                this.form.controls['image_url'].setValue(file.name);
+                this.form.controls['image_data'].setValue(reader.result.split(',')[1]);
             };
         }
     }
