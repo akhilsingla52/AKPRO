@@ -8,7 +8,7 @@
         <h3 class="panel-title">Company </h3>
     </div>
     <div class="col col-xs-6 text-right">
-        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUpdateModel" (click)="clear();model_header='Add'">Add New Company</button>
+        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUpdateModel" (click)="form.reset();model_header='Add'">Add New Company</button>
     </div>
 </div>
 
@@ -94,7 +94,7 @@
                                         'is-invalid': form.controls.company_name.invalid && (form.controls.company_name.dirty || form.controls.company_name.touched)
                                     }" placeholder="Enter Company Name" required>
                             <div class="text-danger" *ngIf="form.controls.company_name.invalid && (form.controls.company_name.dirty || form.controls.company_name.touched)">
-                                <p *ngIf="form.controls.company_name.invalid">Please insert company name</p>
+                                <p>Please enter company name</p>
                             </div>
                         </div>
 
@@ -106,7 +106,7 @@
                                 'is-invalid': form.controls.website.invalid && (form.controls.website.dirty || form.controls.website.touched)
                             }" placeholder="Enter Website" required>
                             <div class="text-danger" *ngIf="form.controls.website.invalid && (form.controls.website.dirty || form.controls.website.touched)">
-                                <p *ngIf="form.controls.website.invalid">Please insert website</p>
+                                <p>Please enter website</p>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                             'is-invalid': form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)
                         }" placeholder="Enter Description" rows="3" style="resize: none" required></textarea>
                         <div class="text-danger" *ngIf="form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)">
-                            <p *ngIf="form.controls.description.invalid">Please insert description</p>
+                            <p>Please enter description</p>
                         </div>
                     </div>
 
@@ -132,7 +132,7 @@
                         }" placeholder="Image Name With Exension" required>
 
                         <div class="text-danger" *ngIf="form.controls.image_url.invalid && (form.controls.image_url.dirty || form.controls.image_url.touched)">
-                            <p *ngIf="form.controls.image_url.invalid">Please insert image name</p>
+                            <p>Please enter image name</p>
                         </div>
                     </div>
                     <div class="form-group">

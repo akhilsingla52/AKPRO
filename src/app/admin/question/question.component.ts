@@ -3,8 +3,8 @@ import { QuestionService } from './question.service';
 import { CategoryService } from '../category/category.service';
 import { Question } from '../../shared/models/Question';
 import { Category } from '../../shared/models/Category';
+import { SweetAlertPopUp } from '../../shared/utils/SweetAlertPopUp';
 
-declare let swal: any;
 declare let $: any;
 
 @Component({
@@ -12,7 +12,7 @@ declare let $: any;
     templateUrl: './question.view.html',
 })
 
-export class QuestionComponent implements OnInit {
+export class QuestionComponent extends SweetAlertPopUp implements OnInit {
     questions: Question[] = [];
     question: Question;
     categories: Category[] = [];
@@ -20,24 +20,25 @@ export class QuestionComponent implements OnInit {
     optionsValue: string = "";
     questionOptions: string[] = [];
 
-    constructor(private questionService: QuestionService, private categoryService: CategoryService) { }
+    constructor(private questionService: QuestionService, private categoryService: CategoryService) { super(); }
 
     ngOnInit() {
         this.getAllQuestions();
     }
 
-    getAllQuestions() {     
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+    getAllQuestions() {
+        this.showLoading();
 
         this.questionService.getAllQuestions()
-            .then(res => {
-                swal.close();
-                this.questions = res.data as Question[];
-        });
+            .then(
+                res => {
+                    this.close();
+                    this.questions = res.data as Question[];
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
         this.clear();
     }
 
@@ -55,17 +56,18 @@ export class QuestionComponent implements OnInit {
     }
 
     getAllCategories() {
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
 
         this.categoryService.getAllCategories()
-            .then(res => {
-                swal.close();
-                this.categories = res.data as Category[];
-        });
+            .then(
+                res => {
+                    this.close();
+                    this.categories = res.data as Category[];
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
     }
 
     openAddModel() {
@@ -84,43 +86,56 @@ export class QuestionComponent implements OnInit {
     addUpdateQuestion() {
         if(this.optionsValue!="") {
             var options = this.optionsValue.split("\n");
-            console.log(options);
+            //console.log(options);
             this.question.options = options;
         }
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
         if(this.question.id == undefined || this.question.id == 0) {
             this.questionService.addQuestion(this.question)
-                .then(res => {
-                    swal.close();
-                    $('#addUpdateModel').modal('toggle');
-                    this.getAllQuestions();
-            });
+                .then(
+                    res => {
+                        this.close();
+                        $('#addUpdateModel').modal('toggle');
+                        this.getAllQuestions();
+
+                        this.successPopUp(res.message);
+                    }, error => {
+                        this.close();
+                        this.errorPopUp();
+                    }
+                );
         } else {
             this.questionService.updateQuestion(this.question)
-            .then(res => {
-                swal.close();
-                $('#addUpdateModel').modal('toggle');
-                this.getAllQuestions();
-            });
+            .then(
+                res => {
+                    this.close();
+                    $('#addUpdateModel').modal('toggle');
+                    this.getAllQuestions();
+
+                    this.successPopUp(res.message);
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
         }
     }
 
     deleteQuestionById(jobId, index) {
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
 
         this.questionService.deleteQuestionById(jobId)
-            .then(res => {
-                this.questions.splice(index,1);
-                swal.close();
-                //this.getAllQuestions();
-        });
+            .then(
+                res => {
+                    this.questions.splice(index,1);
+                    this.close();
+                    //this.getAllQuestions();
+
+                    this.successPopUp(res.message);
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
     }
 }

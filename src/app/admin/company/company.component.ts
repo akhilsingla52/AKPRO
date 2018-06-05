@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyService } from './company.service';
 import { Company } from '../../shared/models/Company';
 import { APP_IMAGE_URL } from '../../shared/utils/Const'
+import { SweetAlertPopUp } from '../../shared/utils/SweetAlertPopUp';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-declare let swal: any;
 declare var $: any;
 
 @Component({
@@ -12,13 +12,13 @@ declare var $: any;
     templateUrl: './company.view.html',
 })
 
-export class CompanyComponent implements OnInit {
+export class CompanyComponent extends SweetAlertPopUp implements OnInit {
     form: FormGroup;
     companies: Company[] = [];
     model_header:string = "";
     appImageUrl:string = APP_IMAGE_URL;
 
-    constructor(private companyService: CompanyService) { }
+    constructor(private companyService: CompanyService) { super(); }
 
     ngOnInit() { 
         this.formValidations();
@@ -51,19 +51,16 @@ export class CompanyComponent implements OnInit {
     }
 
     getAllCompanies() {
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
 
         this.companyService.getAllCompanies()
             .then(
                 success => {
-                    swal.close();
+                    this.close();
                     this.companies = success.data as Company[];
                 }, error => {
-                    swal.close();
+                    this.close();
+                    this.errorPopUp();
                 }
             );
 
@@ -71,17 +68,18 @@ export class CompanyComponent implements OnInit {
     }
 
     getCompanyById(companyId) {
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
 
         this.companyService.getCompanyById(companyId)
-            .then(res => {
-                swal.close();
-                this.form.setValue(res.data);
-        });
+            .then(
+                res => {
+                    this.close();
+                    this.form.setValue(res.data);
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
     }
 
     imageBase64Code(files: FileList) {
@@ -98,40 +96,54 @@ export class CompanyComponent implements OnInit {
     }
 
     createUpdateCompany() {
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
         if(this.form.value.id == undefined || this.form.value.id == 0) {
             this.companyService.addCompany(this.form.value)
-                .then(res => {
-                    swal.close();
-                    $('#addUpdateModel').modal('toggle');
-                    this.getAllCompanies();
-            });
+                .then(
+                    res => {
+                        this.close();
+                        $('#addUpdateModel').modal('toggle');
+                        this.getAllCompanies();
+
+                        this.successPopUp(res.message);
+                    }, error => {
+                        this.close();
+                        this.errorPopUp();
+                    }
+                );
         } else {
             this.companyService.updateCompany(this.form.value)
-            .then(res => {
-                swal.close();
-                $('#addUpdateModel').modal('toggle');
-                this.getAllCompanies();
-            });
+            .then(
+                res => {
+                    this.close();
+                    console.log(res);
+                    $('#addUpdateModel').modal('toggle');
+                    this.getAllCompanies();
+                    
+                    this.successPopUp(res.message);
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
         }
     }
 
     deleteCompanyById(companyId, index) {
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
 
         this.companyService.deleteCompanyById(companyId)
-            .then(res => {
-                this.companies.splice(index, 1);
-                swal.close();
-                //this.getAllCompanies();
-        });
+            .then(
+                res => {
+                    this.companies.splice(index, 1);
+                    this.close();
+                    //this.getAllCompanies();
+                    
+                    this.successPopUp(res.message);
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
     }
 }

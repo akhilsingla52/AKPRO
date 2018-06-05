@@ -3,8 +3,8 @@ import { Company } from '../../shared/models/Company';
 import { JobService } from './job.service';
 import { Job } from '../../shared/models/Job';
 import { CompanyService } from '../company/company.service';
+import { SweetAlertPopUp } from '../../shared/utils/SweetAlertPopUp';
 
-declare let swal: any;
 declare let $: any;
 
 @Component({
@@ -12,30 +12,31 @@ declare let $: any;
     templateUrl: './job.view.html',
 })
 
-export class JobComponent implements OnInit {
+export class JobComponent extends SweetAlertPopUp implements OnInit {
     jobs: Job[] = [];
     job: Job;
     companies: Company[] = [];
     model_header:string = "";
 
-    constructor(private jobService: JobService, private companyService: CompanyService) { }
+    constructor(private jobService: JobService, private companyService: CompanyService) { super(); }
 
     ngOnInit() {
         this.getAllJobs();
     }
 
-    getAllJobs() {     
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+    getAllJobs() { 
+        this.showLoading();
 
         this.jobService.getAllJobs()
-            .then(res => {
-                swal.close();
-                this.jobs = res.data as Job[];
-        });
+            .then(
+                res => {
+                    this.close();
+                    this.jobs = res.data as Job[];
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
         this.clear();
     }
 
@@ -55,17 +56,18 @@ export class JobComponent implements OnInit {
     }
 
     getAllCompanies() {
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
 
         this.companyService.getAllCompanies()
-            .then(res => {
-                swal.close();
-                this.companies = res.data as Company[];
-        });
+            .then(
+                res => {
+                    this.close();
+                    this.companies = res.data as Company[];
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
     }
 
     openAddModel() {
@@ -81,40 +83,53 @@ export class JobComponent implements OnInit {
     }
 
     addUpdateJob() {
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
         if(this.job.id == undefined || this.job.id == 0) {
             this.jobService.addJob(this.job)
-                .then(res => {
-                    swal.close();
-                    $('#addUpdateModel').modal('toggle');
-                    this.getAllJobs();
-            });
+                .then(
+                    res => {
+                        this.close();
+                        $('#addUpdateModel').modal('toggle');
+                        this.getAllJobs();
+
+                        this.successPopUp(res.message);
+                    }, error => {
+                        this.close();
+                        this.errorPopUp();
+                    }
+                );
         } else {
             this.jobService.updateJob(this.job)
-            .then(res => {
-                swal.close();
-                $('#addUpdateModel').modal('toggle');
-                this.getAllJobs();
-            });
+            .then(
+                res => {
+                    this.close();
+                    $('#addUpdateModel').modal('toggle');
+                    this.getAllJobs();
+
+                    this.successPopUp(res.message);
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
         }
     }
 
     deleteJobById(jobId, index) {
-        swal({
-            title: 'Loading...',
-            allowOutsideClick: false
-        });
-        swal.showLoading();
+        this.showLoading();
 
         this.jobService.deleteJobById(jobId)
-            .then(res => {
-                this.jobs.splice(index,1);
-                swal.close();
-                //this.getAllJobs();
-        });
+            .then(
+                res => {
+                    this.jobs.splice(index,1);
+                    this.close();
+                    //this.getAllJobs();
+
+                    this.successPopUp(res.message);
+                }, error => {
+                    this.close();
+                    this.errorPopUp();
+                }
+            );
     }
 }

@@ -63,16 +63,23 @@
                 <h1 class="mx-auto">{{model_header}} Category</h1>
             </div>
             <div class="modal-body">
-                <form role="form">
-                    <input type="hidden" name="id" [(ngModel)]="category.id">
+                <form role="form" [formGroup]="form" (ngSubmit)="createUpdateCategory()" novalidate>
+                    <input type="hidden" name="id"  formControlName="id">
 
                     <div class="form-group">
                         <label for="name">Category Name</label>
-                        <input type="text" class="form-control" name="category_name" [(ngModel)]="category.category_name" placeholder="Enter Category" required>
+                        <input type="text" class="form-control" name="category_name"  formControlName="category_name" 
+                        [ngClass]="{
+                            'is-valid': form.controls.category_name.valid && (form.controls.category_name.dirty || form.controls.category_name.touched),
+                            'is-invalid': form.controls.category_name.invalid && (form.controls.category_name.dirty || form.controls.category_name.touched)
+                        }" placeholder="Enter Category" required>
+                        <div class="text-danger" *ngIf="form.controls.category_name.invalid && (form.controls.category_name.dirty || form.controls.category_name.touched)">
+                            <p>Please enter category name</p>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success" (click)="createUpdateCategory()">{{model_header}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{model_header}}</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
