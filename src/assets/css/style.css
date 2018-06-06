@@ -11,10 +11,20 @@ ol {
 }
 
 .app-body {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: whitesmoke;
 }
 
 .admin-body {
     margin-top: 5rem;
+}
+
+.table-condensed {
+    box-shadow: 10px 10px 12px dimgray;
+    -moz-box-shadow: 10px 10px 12px dimgray;
+    -webkit-box-shadow: 10px 10px 12px dimgray;
 }
 
 @media (min-width: 992px) {

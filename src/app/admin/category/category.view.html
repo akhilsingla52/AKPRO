@@ -18,7 +18,7 @@
             </div>
 
             <div class="panel-body">
-                <table class="table table-striped table-bordered table-list">
+                <table class="table table-striped table-condensed table-hover">
                     <thead>
                         <tr>
                             <th>Category Name</th>
@@ -64,7 +64,7 @@
             </div>
             <div class="modal-body">
                 <form role="form" [formGroup]="form" (ngSubmit)="createUpdateCategory()" novalidate>
-                    <input type="hidden" name="id"  formControlName="id">
+                    <input type="hidden" name="id" formControlName="id">
 
                     <div class="form-group">
                         <label for="name">Category Name</label>

@@ -19,7 +19,7 @@
             </div>
 
             <div class="panel-body">
-                <table class="table table-striped table-bordered table-list">
+                <table class="table table-striped table-condensed table-hover">
                     <thead>
                         <tr>
                             <th>Company</th>
@@ -47,7 +47,7 @@
                             <td>{{job.experience}}</td>
                             <td>{{job.salary}}</td>
                             <td>{{job.created_date}}</td>
-                            <td align='text-center'>
+                            <td class='text-center'>
                                 <a class='btn btn-primary text-white' data-toggle="modal" data-target="#addUpdateModel" (click)="openUpdateModel(job)">
                                     <em class='fa fa-pencil'></em>
                                 </a>
@@ -72,44 +72,85 @@
                 <h1 class="mx-auto">{{model_header}} Job</h1>
             </div>
             <div class="modal-body">
-                <form>
-                    <input type="hidden" name="id" [(ngModel)]="job.id">
+                <form role="form" [formGroup]="form" (ngSubmit)="addUpdateJob()" novalidate>
+                    <input type="hidden" name="id" formControlName="id">
 
                     <div class="form-group">
                         <label for="sel1">Select Company:</label>
-                        <select name="companyId" class="form-control" [(ngModel)]="job.company_id">
-                            <option selected disabled value="0">Select Company</option>
+                        <select name="companyId" class="form-control" formControlName="company_id"
+                            [ngClass]="{
+                                'is-valid': form.controls.company_id.valid && (form.controls.company_id.dirty || form.controls.company_id.touched),
+                                'is-invalid': form.controls.company_id.invalid && (form.controls.company_id.dirty || form.controls.company_id.touched)
+                            }" required>
+                            <option selected disabled [value]="0">Select Company</option>
                             <option *ngFor="let company of companies" [value]="company.id">{{company.company_name}}</option>
                         </select>
+                        <div class="text-danger" *ngIf="form.controls.company_id.invalid && (form.controls.company_id.dirty || form.controls.company_id.touched)">
+                            <p>Please select company</p>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="Location">Location</label>
-                        <textarea name="location" class="form-control" [(ngModel)]="job.location" rows="3" style="resize:none" placeholder="Enter Location "
-                            required></textarea>
+                        <textarea name="location" class="form-control" formControlName="location" 
+                            [ngClass]="{
+                                'is-valid': form.controls.location.valid && (form.controls.location.dirty || form.controls.location.touched),
+                                'is-invalid': form.controls.location.invalid && (form.controls.location.dirty || form.controls.location.touched)
+                            }" rows="3" style="resize:none" placeholder="Enter Location " required></textarea>
+                        <div class="text-danger" *ngIf="form.controls.location.invalid && (form.controls.location.dirty || form.controls.location.touched)">
+                            <p>Please enter location</p>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="Technology">Technology</label>
-                        <input type="text" name="technology" class="form-control" [(ngModel)]="job.technology" placeholder="Enter Technology" required>
+                        <input type="text" name="technology" class="form-control" formControlName="technology"  
+                            [ngClass]="{
+                                'is-valid': form.controls.technology.valid && (form.controls.technology.dirty || form.controls.technology.touched),
+                                'is-invalid': form.controls.technology.invalid && (form.controls.technology.dirty || form.controls.technology.touched)
+                            }" placeholder="Enter Technology" required>
+                        <div class="text-danger" *ngIf="form.controls.technology.invalid && (form.controls.technology.dirty || form.controls.technology.touched)">
+                            <p>Please enter technology</p>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="Role">Role</label>
-                        <input type="text" name="role" class="form-control" [(ngModel)]="job.role" placeholder="Enter Role" required>
+                        <input type="text" name="role" class="form-control" formControlName="role"
+                            [ngClass]="{
+                                'is-valid': form.controls.role.valid && (form.controls.role.dirty || form.controls.role.touched),
+                                'is-invalid': form.controls.role.invalid && (form.controls.role.dirty || form.controls.role.touched)
+                            }" placeholder="Enter Role" required>
+                        <div class="text-danger" *ngIf="form.controls.role.invalid && (form.controls.role.dirty || form.controls.role.touched)">
+                            <p>Please enter role</p>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="Experience">Experience</label>
-                        <input type="text" name="experience" class="form-control" [(ngModel)]="job.experience" placeholder="Enter Experience" required>
+                        <input type="text" name="experience" class="form-control" formControlName="experience"
+                            [ngClass]="{
+                                'is-valid': form.controls.experience.valid && (form.controls.experience.dirty || form.controls.experience.touched),
+                                'is-invalid': form.controls.experience.invalid && (form.controls.experience.dirty || form.controls.experience.touched)
+                            }" placeholder="Enter Experience" required>
+                        <div class="text-danger" *ngIf="form.controls.experience.invalid && (form.controls.experience.dirty || form.controls.experience.touched)">
+                            <p>Please enter experience</p>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="Salary">Salary</label>
-                        <input type="number" name="salary" class="form-control" [(ngModel)]="job.salary" pattern="[0-9]+[.][0-9]+" step="0.01" placeholder="Enter Salary"
-                            required>
+                        <input type="number" name="salary" class="form-control" formControlName="salary"
+                            [ngClass]="{
+                                'is-valid': form.controls.salary.valid && (form.controls.salary.dirty || form.controls.salary.touched),
+                                'is-invalid': form.controls.salary.invalid && (form.controls.salary.dirty || form.controls.salary.touched)
+                            }" pattern="[0-9]+[.][0-9]{2}" placeholder="Enter Salary" required>
+                        <div class="text-danger" *ngIf="form.controls.salary.invalid && (form.controls.salary.dirty || form.controls.salary.touched)">
+                            <p>Please enter salary</p>
+                            <p *ngIf="form.controls.salary.pattern">Salary Should be like 12.50</p>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success" (click)="addUpdateJob()">{{model_header}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{model_header}}</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>

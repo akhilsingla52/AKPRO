@@ -82,6 +82,16 @@ export class CompanyComponent extends SweetAlertPopUp implements OnInit {
             );
     }
 
+    openAddModel() {
+        this.form.reset();
+        this.model_header = "Add";
+    }
+
+    openUpdateModel(companyId:number) {
+        this.model_header = "Update";
+        this.getCompanyById(companyId);
+    }
+
     imageBase64Code(files: FileList) {
         var file = files.item(0);
 

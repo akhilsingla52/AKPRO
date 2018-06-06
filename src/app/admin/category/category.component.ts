@@ -74,6 +74,7 @@ export class CategoryComponent extends SweetAlertPopUp implements OnInit {
 
     openUpdateModel(category: Category) {
         this.model_header = "Update";
+        this.form.reset();
         this.form.setValue(category);
     }
 
