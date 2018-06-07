@@ -29,7 +29,7 @@ export class JobComponent extends SweetAlertPopUp implements OnInit {
     formValidations() {
         this.form = new FormGroup({
             id: new FormControl(''),
-            company_id: new FormControl('', {
+            company_id: new FormControl('0', {
                 validators: Validators.required,
                 updateOn: 'change'
             }),

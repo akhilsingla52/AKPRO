@@ -1,9 +1,19 @@
 html, body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 a {
     text-decoration: none !important;
     outline: 0;
+}
+
+.btn[disabled] {
+    cursor: not-allowed;
 }
 
 ol {
@@ -18,13 +28,41 @@ ol {
 }
 
 .admin-body {
-    margin-top: 5rem;
+    margin: 5rem 0rem 6rem 0rem;
 }
 
 .table-condensed {
-    box-shadow: 10px 10px 12px dimgray;
-    -moz-box-shadow: 10px 10px 12px dimgray;
-    -webkit-box-shadow: 10px 10px 12px dimgray;
+    box-shadow: 10px 10px 12px;
+    -moz-box-shadow: 10px 10px 12px;
+    -webkit-box-shadow: 10px 10px 12px;
+}
+
+.modal-dialog {
+    box-shadow: 10px 10px 12px;
+    -moz-box-shadow: 10px 10px 12px;
+    -webkit-box-shadow: 10px 10px 12px;
+}
+
+.alert {
+    margin-bottom: 50px;
+    box-shadow: 10px 10px 12px;
+    -moz-box-shadow: 10px 10px 12px;
+    -webkit-box-shadow: 10px 10px 12px;
+}
+
+.addButton {
+    cursor: pointer;
+    position: fixed;
+    background: #007bff;
+    padding: 14px 18px;
+    border-radius: 50%;
+    z-index: 1000;
+    bottom: 0;
+    right: 0;
+    margin: 0% 1% 1% 0%;
+    box-shadow: 10px 10px 12px;
+    -moz-box-shadow: 10px 10px 12px;
+    -webkit-box-shadow: 10px 10px 12px;
 }
 
 @media (min-width: 992px) {

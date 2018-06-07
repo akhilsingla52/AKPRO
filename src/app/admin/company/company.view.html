@@ -3,13 +3,9 @@
         <h1 class="text-center alert alert-info">Company Details</h1>
     </div>
 </div>
-<div class="row">
-    <div class="col col-xs-6">
-        <h3 class="panel-title">Company </h3>
-    </div>
-    <div class="col col-xs-6 text-right">
-        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUpdateModel" (click)="openAddModel()">Add New Company</button>
-    </div>
+
+<div class="addButton" data-toggle="modal" data-target="#addUpdateModel" (click)="openAddModel()">
+    <i class="fa fa-plus fa-2x text-white" aria-hidden="true"></i>
 </div>
 
 <div class="panel-body">
@@ -42,7 +38,7 @@
                 <td>{{company.website}}</td>
                 <td>
                     <span class="d-inline-block text-truncate description-text">{{company.description}}</span>
-                    <a class='text-primary' data-toggle="modal" data-target="#readMore" (click)="description=company.description">Read More</a>
+                    <a class='text-primary btn' data-toggle="modal" data-target="#readMore" (click)="description=company.description">Read More</a>
                 </td>
                 <td>{{company.created_date}}</td>
                 <td>{{company.modified_date}}</td>

@@ -4,6 +4,7 @@ import { CategoryService } from '../category/category.service';
 import { Question } from '../../shared/models/Question';
 import { Category } from '../../shared/models/Category';
 import { SweetAlertPopUp } from '../../shared/utils/SweetAlertPopUp';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 declare let $: any;
 
@@ -13,17 +14,43 @@ declare let $: any;
 })
 
 export class QuestionComponent extends SweetAlertPopUp implements OnInit {
+    form: FormGroup;
     questions: Question[] = [];
-    question: Question;
     categories: Category[] = [];
     model_header: string = "";
-    optionsValue: string = "";
     questionOptions: string[] = [];
 
     constructor(private questionService: QuestionService, private categoryService: CategoryService) { super(); }
 
     ngOnInit() {
+        this.formValidations();
         this.getAllQuestions();
+    }
+
+    formValidations() {
+        this.form = new FormGroup({
+            id: new FormControl(''),
+            category_id: new FormControl('0', {
+                validators: Validators.required,
+                updateOn: 'change'
+            }),
+            category_name: new FormControl(''),
+            question: new FormControl('', {
+                validators: Validators.required,
+                updateOn: 'change'
+            }),
+            options: new FormControl([]),
+            optionValue: new FormControl('', {
+                validators: Validators.required,
+                updateOn: 'change'
+            }),
+            answer: new FormControl('', {
+                validators: Validators.required,
+                updateOn: 'change'
+            }),
+            created_date: new FormControl(''),
+            modified_date: new FormControl(''),
+        });
     }
 
     getAllQuestions() {
@@ -39,20 +66,7 @@ export class QuestionComponent extends SweetAlertPopUp implements OnInit {
                     this.errorPopUp();
                 }
             );
-        this.clear();
-    }
-
-    clear() {
-        this.question = {
-            id: 0,
-            category_id: 0,
-            category_name: "",
-            question: "",
-            options: [],
-            answer: "",
-            created_date: "",
-            modified_date: ""
-        }
+        this.form.reset();
     }
 
     getAllCategories() {
@@ -73,25 +87,24 @@ export class QuestionComponent extends SweetAlertPopUp implements OnInit {
     openAddModel() {
         this.model_header = "Add";
         this.getAllCategories();
-        this.clear();
+        this.form.reset();
     }
 
     openUpdateModel(question: Question) {
         this.model_header = "Update";
         this.getAllCategories();
-        this.question = question;
-        this.optionsValue = this.question.options.join("\n");
+        var editQuestion:any = question;
+        console.log(editQuestion);
+        editQuestion.optionValue = editQuestion.options.join("\n");
+        this.form.setValue(editQuestion);
     }
 
     addUpdateQuestion() {
-        if(this.optionsValue!="") {
-            var options = this.optionsValue.split("\n");
-            //console.log(options);
-            this.question.options = options;
-        }
+        if(this.form.value.optionValue!="")
+            this.form.value.options = this.form.value.optionValue.split("\n");
         this.showLoading();
-        if(this.question.id == undefined || this.question.id == 0) {
-            this.questionService.addQuestion(this.question)
+        if(this.form.value.id == undefined || this.form.value.id == 0) {
+            this.questionService.addQuestion(this.form.value)
                 .then(
                     res => {
                         this.close();
@@ -105,7 +118,7 @@ export class QuestionComponent extends SweetAlertPopUp implements OnInit {
                     }
                 );
         } else {
-            this.questionService.updateQuestion(this.question)
+            this.questionService.updateQuestion(this.form.value)
             .then(
                 res => {
                     this.close();

@@ -1,47 +1,34 @@
 <div class="row">
-
     <div class="col-md-12">
         <h1 class="text-center alert alert-info">Test Details</h1>
     </div>
+</div>
 
-    <div class="col-md-12">
-        <div class="panel panel-default panel-table">
+<div class="panel-body">
+    <table class="table table-striped table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Question Attempt</th>
+                <th>Right Answer</th>
+                <th>Marks</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="examDetails.length == 0">
+                <td colspan="6">No Test to Display</td>
+            </tr>
 
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col col-md-12">
-                        <h3 class="panel-title">Test </h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <table class="table table-striped table-condensed table-hover">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Question Attempt</th>
-                            <th>Right Answer</th>
-                            <th>Marks</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngIf="examDetails.length == 0">
-                            <td colspan="6">No Test to Display</td>
-                        </tr>
-
-                        <tr *ngFor="let exam of examDetails; let i = index">
-                            <td>{{exam.name}}</td>
-                            <td>{{exam.email}}</td>
-                            <td>{{exam.attempt}}</td>
-                            <td>{{exam.right}}</td>
-                            <td>{{exam.marks}}</td>
-                            <td>{{exam.date}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
+            <tr *ngFor="let exam of examDetails; let i = index">
+                <td>{{exam.name}}</td>
+                <td>{{exam.email}}</td>
+                <td>{{exam.attempt}}</td>
+                <td>{{exam.right}}</td>
+                <td>{{exam.marks}}</td>
+                <td>{{exam.date}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

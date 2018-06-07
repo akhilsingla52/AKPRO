@@ -37,7 +37,7 @@ export class CompanyComponent extends SweetAlertPopUp implements OnInit {
                 updateOn: 'change'
             }),
             description: new FormControl('', {
-                validators: Validators.required,
+                validators: [Validators.required, Validators.maxLength(200)],
                 updateOn: 'change'
             }),
             image_url: new FormControl('', {
