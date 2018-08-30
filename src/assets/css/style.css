@@ -79,4 +79,16 @@ ol {
     padding: 0;
 }
 
+.form-control-feedback {
+    position: absolute;
+    z-index: 10;
+    color: gray;
+    padding: 0.7rem 0.4rem;
+}
+
+.form-control-search {
+    padding-left: 1.8rem;
+    border-radius: .25rem !important;
+}
+
 

@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from '../appComponent/app.component';
 import { SharedRoutingModule, sharedComponents } from '../shared/shared-routes/shared.routing.module';
@@ -17,6 +19,8 @@ import { AdminRoutingModule, adminComponents } from '../admin/admin-routes/admin
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule.forRoot(), 
+    NgbPaginationModule,
     AdminRoutingModule,
     SharedRoutingModule
   ],

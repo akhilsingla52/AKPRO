@@ -10,6 +10,13 @@ export class QuestionService {
  
     constructor(private http: HttpClient) { }
 
+    getAllCategories() {
+        return this.http.get('questionCategory/getAllCategories')
+            .toPromise()
+            .then(res => res)
+            .catch(this.handleError);
+    }
+
     getAllQuestions() {
         return this.http.get(`questionBank/getAll`)
             .toPromise()

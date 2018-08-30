@@ -9,8 +9,8 @@ export class CategoryService {
  
     constructor(private http: HttpClient) { }
 
-    getAllCategories(){
-        return this.http.get(`questionCategory/getAll`)
+    getAllCategories(page, size, sortby, sortorder, search){
+        return this.http.get('questionCategory/getAllCategoriesWithParams?page='+page+'&size='+size+'&sortby='+sortby+'&sortorder='+sortorder+'&search='+search)
             .toPromise()
             .then(res => res)
             .catch(this.handleError);

@@ -13,14 +13,16 @@ declare var $: any;
 
 export class CategoryComponent extends SweetAlertPopUp implements OnInit {
     form: FormGroup;
+    params: any = {};
     categories: Category[] = [];
+    count: number = 0;
     model_header:string = "";
 
     constructor(private categoryService: CategoryService) { super(); }
 
     ngOnInit() {
         this.formValidations();
-        this.getAllCategories();
+        this.reset();
     }
 
     formValidations() {
@@ -35,14 +37,37 @@ export class CategoryComponent extends SweetAlertPopUp implements OnInit {
         });
     }
 
+    convertToHex(str) {
+        var hex = '';
+        for(var i=0;i<str.length;i++) {
+            hex += ''+str.charCodeAt(i).toString(16);
+        }
+        return hex;
+    }
+
+    orderBy(sortBy) {
+        if(sortBy!= this.params.sortby)
+            this.params.sortorder="DESC"
+        this.params.sortby=sortBy;
+
+        if(this.params.sortorder=="ASC")
+            this.params.sortorder="DESC"
+        else
+            this.params.sortorder="ASC"
+
+        this.getAllCategories();
+    }
+
     getAllCategories() {
         this.showLoading();
 
-        this.categoryService.getAllCategories()
+        //page, size, sortby, sortorder, search
+        this.categoryService.getAllCategories(this.params.page, this.params.size, this.params.sortby, this.params.sortorder,this.convertToHex(this.params.search.trim()))
             .then(
                 res => {
                     this.close();
                     this.categories = res.data as Category[];
+                    this.count = res.count as number;
                 }, error => {
                     this.close();
                     this.errorPopUp();
@@ -50,6 +75,17 @@ export class CategoryComponent extends SweetAlertPopUp implements OnInit {
             );
 
         this.form.reset();
+    }
+
+    reset() {
+        this.params = {
+            'page':'1',
+            'size':'5',
+            'sortby': '',
+            'sortorder': '',
+            'search':''
+        };
+        //this.getAllCategories();
     }
 
     getCategoryById(categoryId) {
@@ -86,7 +122,7 @@ export class CategoryComponent extends SweetAlertPopUp implements OnInit {
                     res => {
                         this.close();
                         $('#addUpdateModel').modal('toggle');
-                        this.getAllCategories();
+                        this.reset();
                         
                         this.successPopUp(res.message);
                     }, error => {
@@ -100,7 +136,7 @@ export class CategoryComponent extends SweetAlertPopUp implements OnInit {
                     res => {
                         this.close();
                         $('#addUpdateModel').modal('toggle');
-                        this.getAllCategories();
+                        this.reset();
                         
                         this.successPopUp(res.message);
                     }, error => {
@@ -117,9 +153,9 @@ export class CategoryComponent extends SweetAlertPopUp implements OnInit {
         this.categoryService.deleteCategoryById(categoryId)
             .then(
                 res => {
-                    this.categories.splice(index, 1);
+                    //this.categories.splice(index, 1);
                     this.close();
-                    //this.getAllCategories();
+                    this.reset();
                     
                     this.successPopUp(res.message);
                 }, error => {

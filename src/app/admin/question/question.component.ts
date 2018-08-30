@@ -20,7 +20,7 @@ export class QuestionComponent extends SweetAlertPopUp implements OnInit {
     model_header: string = "";
     questionOptions: string[] = [];
 
-    constructor(private questionService: QuestionService, private categoryService: CategoryService) { super(); }
+    constructor(private questionService: QuestionService) { super(); }
 
     ngOnInit() {
         this.formValidations();
@@ -72,7 +72,7 @@ export class QuestionComponent extends SweetAlertPopUp implements OnInit {
     getAllCategories() {
         this.showLoading();
 
-        this.categoryService.getAllCategories()
+        this.questionService.getAllCategories()
             .then(
                 res => {
                     this.close();

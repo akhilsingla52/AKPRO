@@ -16,7 +16,8 @@
       'core-js':                            'npm:core-js',
       'zone.js':                            'npm:zone.js',
       'rxjs':                               'npm:rxjs',
-      'tslib':                              'npm:tslib/tslib.js'
+      'tslib':                              'npm:tslib/tslib.js',
+      '@ng-bootstrap/ng-bootstrap':         'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
     },
     packages: {
       app: { 
