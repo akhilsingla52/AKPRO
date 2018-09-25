@@ -1,0 +1,47 @@
+{
+    "version": 1.0,
+    "newProjectRoot": "AKPRO",
+    "projects": {
+      "AKPRO": {
+        "root": "",
+        "sourceRoot": "src",
+        "projectType": "application",
+        "prefix": "app",
+        "schematics": {},
+        "architect": {
+          "build": {
+            "builder": "@angular-devkit/build-angular:browser",
+            "options": {
+              "outputPath": "dist/AKPRO",
+              "index": "src/index.html",
+              "main": "src/main.ts",
+              "polyfills": "src/polyfills.ts",
+              "tsConfig": "tsconfig.json",
+              "assets": [
+                "src/assets/favicon.ico",
+                "src/assets"
+              ],
+              "styles": [
+                "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "node_modules/font-awesome/css/font-awesome.min.css",
+                "node_modules/sweetalert2/dist/sweetalert2.css",
+                "src/assets/css/styles.css"
+              ],
+              "scripts": [
+                "node_modules/jquery/dist/jquery.min.js",
+                "node_modules/sweetalert2/dist/sweetalert2.min.js",
+                "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              ]
+            }
+          },
+          "serve": {
+            "builder": "@angular-devkit/build-angular:dev-server",
+            "options": {
+              "browserTarget": "AKPRO:build"
+            }
+          }
+        }
+      }
+    },
+    "defaultProject": "AKPRO"
+  }
