@@ -1,0 +1,8 @@
+yarn add @angular/animations @angular/common @angular/compiler @angular/core @angular/forms @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade core-js rxjs rxjs-compat zone.js
+	
+yarn add ngx-perfect-scrollbar
+
+yarn add bootstrap font-awesome jquery sweetalert2 @ng-bootstrap
+
+yarn add @angular/compiler-cli @angular-devkit/build-angular  @angular/cli @angular/language-service --dev
+yarn add typescript @types/node codelyzer protractor ts-node tslint --dev

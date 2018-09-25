@@ -11,3 +11,5 @@ dist
 *.ico
 debug.log
 package-lock.json
+yarn.lock
+.gitkeep
