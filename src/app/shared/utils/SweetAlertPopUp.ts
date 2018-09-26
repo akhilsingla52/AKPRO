@@ -1,4 +1,5 @@
-declare let swal: any;
+// declare let swal: any;
+import swal from 'sweetalert2';
 
 export class SweetAlertPopUp {
 
@@ -21,6 +22,16 @@ export class SweetAlertPopUp {
         swal({
             title: "some error occur",
             type: "error",
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            timer: 3000
+        })
+    }
+
+    public error(message) {
+        swal({
+            title: message,  
             showConfirmButton: false,
             allowOutsideClick: false,
             allowEscapeKey: false,

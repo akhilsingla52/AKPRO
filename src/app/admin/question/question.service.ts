@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Question } from '../../shared/models/Question';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/catch';

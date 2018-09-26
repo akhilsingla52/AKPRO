@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 declare let $: any;
 
@@ -7,10 +8,8 @@ declare let $: any;
     templateUrl: './app.view.html',
 })
 export class AppComponent implements OnInit {
+    public config: PerfectScrollbarConfigInterface = {};
 
     ngOnInit() {
-        // $('body').bind('copy paste cut',function(e) {
-        //     e.preventDefault(); return false; 
-        // });
     }
 }

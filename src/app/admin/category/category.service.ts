@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Category } from '../../shared/models/Category';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/catch';

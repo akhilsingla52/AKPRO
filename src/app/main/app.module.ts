@@ -9,6 +9,13 @@ import { AppComponent } from '../appComponent/app.component';
 import { SharedRoutingModule, sharedComponents } from '../shared/shared-routes/shared.routing.module';
 import { AdminRoutingModule, adminComponents } from '../admin/admin-routes/admin.routing.module';
 
+import { PerfectScrollbarModule, PerfectScrollbarConfigInterface,
+  PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  wheelPropagation: true
+};
+
 @NgModule({
   declarations: [
     AppComponent, adminComponents, sharedComponents
@@ -18,10 +25,17 @@ import { AdminRoutingModule, adminComponents } from '../admin/admin-routes/admin
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    PerfectScrollbarModule,
     NgbModule.forRoot(), 
     NgbPaginationModule,
     AdminRoutingModule,
     SharedRoutingModule
+  ],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ],
   bootstrap: [AppComponent]
 })
