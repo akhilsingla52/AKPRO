@@ -8,6 +8,7 @@ import { LoginService } from './login.service';
 })
 
 export class LoginComponent implements OnInit {
+    errorMsg:string = '';
 
     constructor(private router:Router, private loginService: LoginService) { }
 

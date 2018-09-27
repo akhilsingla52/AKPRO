@@ -1,33 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { TestService } from './test.service';
 import { ExamDetails } from '../../shared/models/ExamDetails';
-import { SweetAlertPopUp } from '../../shared/utils/SweetAlertPopUp';
+
+import SweetAlertPopUp from '../../shared/utils/SweetAlertPopUp';
 
 @Component({
     selector: 'test',
     templateUrl: './test.view.html',
 })
 
-export class TestComponent extends SweetAlertPopUp implements OnInit {
+export class TestComponent implements OnInit {
     examDetails: ExamDetails[] = [];
 
-    constructor(private testService: TestService) { super(); }
+    constructor(private testService: TestService) { }
 
     ngOnInit() {
         this.getAllExamDetails();
     }
 
     getAllExamDetails() {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.testService.getAllExamDetails()
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     this.examDetails = res.data as ExamDetails[];
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
                 }
             );
     }

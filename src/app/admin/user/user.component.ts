@@ -1,33 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { UserDetails } from '../../shared/models/UserDetails';
-import { SweetAlertPopUp } from '../../shared/utils/SweetAlertPopUp';
+import SweetAlertPopUp from '../../shared/utils/SweetAlertPopUp';
 
 @Component({
     selector: 'user',
     templateUrl: './user.view.html',
 })
 
-export class UserComponent extends SweetAlertPopUp implements OnInit {
+export class UserComponent implements OnInit {
     userList: UserDetails[] = [];
 
-    constructor(private userService: UserService) { super(); }
+    constructor(private userService: UserService) { }
 
     ngOnInit() {
         this.getAllUser();
     }
 
     getAllUser() {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.userService.getAllUser()
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     this.userList = res.data as UserDetails[];
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
                 }
             );
     }

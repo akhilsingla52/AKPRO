@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/catch';
+import { map } from 'rxjs/operators';
 import { Company } from '../../shared/models/Company';
-
 
 @Injectable()
 export class CompanyService {
@@ -11,43 +9,28 @@ export class CompanyService {
     constructor(private http: HttpClient) { }
 
     getAllCompanies(){
-        return this.http.get(`company/getAll`)
-            .toPromise()
-            .then(res => res)
-            .catch(this.handleError);
+        return this.http.get<any>(`company/getAll`)
+            .pipe( map( res => res ) );
     }
 
     getCompanyById(companyId) {
-        return this.http.get(`company/`+companyId)
-            .toPromise()
-            .then(res => res)
-            .catch(this.handleError);
+        return this.http.get<any>(`company/`+companyId)
+            .pipe( map( res => res ) );
     }
 
     addCompany(company: Company) {
-        return this.http.post(`company/create`, company)
-            .toPromise()
-            .then(res => res)
-            .catch(this.handleError);
+        return this.http.post<any>(`company/create`, company)
+            .pipe( map( res => res ) );
     }
 
     updateCompany(company: Company) {
-        return this.http.put(`company/update`, company)
-            .toPromise()
-            .then(res => res)
-            .catch(this.handleError);
+        return this.http.put<any>(`company/update`, company)
+            .pipe( map( res => res ) );
     }
 
     deleteCompanyById(companyId) {
-        return this.http.delete(`company/delete/`+companyId)
-            .toPromise()
-            .then(res => res)
-            .catch(this.handleError);
-    }
-
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+        return this.http.delete<any>(`company/delete/`+companyId)
+            .pipe( map( res => res ) );
     }
     
 }

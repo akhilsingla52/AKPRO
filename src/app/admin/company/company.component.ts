@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyService } from './company.service';
 import { Company } from '../../shared/models/Company';
 import { APP_IMAGE_URL } from '../../shared/utils/Const'
-import { SweetAlertPopUp } from '../../shared/utils/SweetAlertPopUp';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import SweetAlertPopUp from '../../shared/utils/SweetAlertPopUp';
 declare var $: any;
 
 @Component({
@@ -12,13 +12,14 @@ declare var $: any;
     templateUrl: './company.view.html',
 })
 
-export class CompanyComponent extends SweetAlertPopUp implements OnInit {
+export class CompanyComponent implements OnInit {
     form: FormGroup;
     companies: Company[] = [];
     model_header:string = "";
     appImageUrl:string = APP_IMAGE_URL;
+    description:string = "";
 
-    constructor(private companyService: CompanyService) { super(); }
+    constructor(private companyService: CompanyService) { }
 
     ngOnInit() { 
         this.formValidations();
@@ -51,16 +52,13 @@ export class CompanyComponent extends SweetAlertPopUp implements OnInit {
     }
 
     getAllCompanies() {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.companyService.getAllCompanies()
-            .then(
+            .subscribe(
                 success => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     this.companies = success.data as Company[];
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
                 }
             );
 
@@ -68,16 +66,13 @@ export class CompanyComponent extends SweetAlertPopUp implements OnInit {
     }
 
     getCompanyById(companyId) {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.companyService.getCompanyById(companyId)
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     this.form.setValue(res.data);
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
                 }
             );
     }
@@ -100,59 +95,50 @@ export class CompanyComponent extends SweetAlertPopUp implements OnInit {
             reader.readAsDataURL(file)
             reader.onload = () => {
                 this.form.controls['image_url'].setValue(file.name);
-                this.form.controls['image_data'].setValue(reader.result.split(',')[1]);
+                this.form.controls['image_data'].setValue(reader.result.toString().split(',')[1]);
             };
         }
     }
 
     createUpdateCompany() {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
         if(this.form.value.id == undefined || this.form.value.id == 0) {
             this.companyService.addCompany(this.form.value)
-                .then(
+                .subscribe(
                     res => {
-                        this.close();
+                        SweetAlertPopUp.close();
                         $('#addUpdateModel').modal('toggle');
                         this.getAllCompanies();
 
-                        this.successPopUp(res.message);
-                    }, error => {
-                        this.close();
-                        this.errorPopUp();
+                        SweetAlertPopUp.successPopUp(res.message);
                     }
                 );
         } else {
             this.companyService.updateCompany(this.form.value)
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     console.log(res);
                     $('#addUpdateModel').modal('toggle');
                     this.getAllCompanies();
                     
-                    this.successPopUp(res.message);
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
+                    SweetAlertPopUp.successPopUp(res.message);
                 }
             );
         }
     }
 
     deleteCompanyById(companyId, index) {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.companyService.deleteCompanyById(companyId)
-            .then(
+            .subscribe(
                 res => {
                     this.companies.splice(index, 1);
-                    this.close();
+                    SweetAlertPopUp.close();
                     //this.getAllCompanies();
                     
-                    this.successPopUp(res.message);
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
+                    SweetAlertPopUp.successPopUp(res.message);
                 }
             );
     }

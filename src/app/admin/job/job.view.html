@@ -41,7 +41,7 @@
                     <a class='btn btn-primary text-white' data-toggle="modal" data-target="#addUpdateModel" (click)="openUpdateModel(job)">
                         <em class='fa fa-pencil'></em>
                     </a>
-                    <a class='btn btn-danger text-white' (click)="deleteJobById(job.id, i)">
+                    <a class='btn btn-danger text-white ml-2' (click)="deleteJobById(job.id, i)">
                         <em class='fa fa-trash'></em>
                     </a>
                 </td>
@@ -51,7 +51,7 @@
 </div>
 
 <!-- Update Modal -->
-<div class="modal fade" id="addUpdateModel" role="dialog">
+<perfect-scrollbar class="modal fade" id="addUpdateModel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header alert-info">
@@ -71,7 +71,10 @@
                             <option selected disabled value="0">Select Company</option>
                             <option *ngFor="let company of companies" [value]="company.id">{{company.company_name}}</option>
                         </select>
-                        <div class="text-danger" *ngIf="form.controls.company_id.invalid && (form.controls.company_id.dirty || form.controls.company_id.touched)">
+                        <div class="text-danger d-none" 
+                            [ngClass]="{
+                                'd-block': form.controls.company_id.invalid && (form.controls.company_id.dirty || form.controls.company_id.touched)
+                            }">
                             <p>Please select company</p>
                         </div>
                     </div>
@@ -82,7 +85,10 @@
                                 'is-valid': form.controls.location.valid && (form.controls.location.dirty || form.controls.location.touched),
                                 'is-invalid': form.controls.location.invalid && (form.controls.location.dirty || form.controls.location.touched)
                             }" rows="3" style="resize:none" placeholder="Enter Location " required></textarea>
-                        <div class="text-danger" *ngIf="form.controls.location.invalid && (form.controls.location.dirty || form.controls.location.touched)">
+                        <div class="text-danger d-none" 
+                            [ngClass]="{
+                                'd-block': form.controls.location.invalid && (form.controls.location.dirty || form.controls.location.touched)
+                            }">
                             <p>Please enter location</p>
                         </div>
                     </div>
@@ -93,7 +99,10 @@
                                 'is-valid': form.controls.technology.valid && (form.controls.technology.dirty || form.controls.technology.touched),
                                 'is-invalid': form.controls.technology.invalid && (form.controls.technology.dirty || form.controls.technology.touched)
                             }" placeholder="Enter Technology" required>
-                        <div class="text-danger" *ngIf="form.controls.technology.invalid && (form.controls.technology.dirty || form.controls.technology.touched)">
+                        <div class="text-danger d-none" 
+                            [ngClass]="{
+                                'd-block': form.controls.technology.invalid && (form.controls.technology.dirty || form.controls.technology.touched)
+                            }">
                             <p>Please enter technology</p>
                         </div>
                     </div>
@@ -105,21 +114,27 @@
                                 'is-valid': form.controls.role.valid && (form.controls.role.dirty || form.controls.role.touched),
                                 'is-invalid': form.controls.role.invalid && (form.controls.role.dirty || form.controls.role.touched)
                             }" placeholder="Enter Role" required>
-                        <div class="text-danger" *ngIf="form.controls.role.invalid && (form.controls.role.dirty || form.controls.role.touched)">
+                        <div class="text-danger d-none" 
+                            [ngClass]="{
+                                'd-block': form.controls.role.invalid && (form.controls.role.dirty || form.controls.role.touched)
+                            }">
                             <p>Please enter role</p>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="Experience">Years of Experience</label>
-                        <input type="text" name="experience" class="form-control" formControlName="experience"
+                        <input type="number" name="experience" class="form-control" formControlName="experience"
                             [ngClass]="{
                                 'is-valid': form.controls.experience.valid && (form.controls.experience.dirty || form.controls.experience.touched),
                                 'is-invalid': form.controls.experience.invalid && (form.controls.experience.dirty || form.controls.experience.touched)
-                            }" pattern="[0-9]+[.]([0-9]{1})" step="0.1" placeholder="Enter Experience" required>
-                        <div class="text-danger" *ngIf="form.controls.experience.invalid && (form.controls.experience.dirty || form.controls.experience.touched)">
-                            <p *ngIf="form.controls.experience.errors.required">Please enter experience</p>
-                            <p *ngIf="form.controls.experience.errors.pattern">Experience Should be like 2.5</p>
+                            }" pattern="[0-9]+[.]([0-9]{1})" placeholder="Enter Experience" required>
+                        <div class="text-danger d-none" 
+                            [ngClass]="{
+                                'd-block': form.controls.experience.invalid && (form.controls.experience.dirty || form.controls.experience.touched)
+                            }">
+                            <p [hidden]="!form.controls.experience.errors?.required">Please enter experience</p>
+                            <p [hidden]="!form.controls.experience.errors?.pattern">Experience Should be like 2.5</p>
                         </div>
                     </div>
 
@@ -129,19 +144,22 @@
                             [ngClass]="{
                                 'is-valid': form.controls.salary.valid && (form.controls.salary.dirty || form.controls.salary.touched),
                                 'is-invalid': form.controls.salary.invalid && (form.controls.salary.dirty || form.controls.salary.touched)
-                            }" pattern="[0-9]+[.]([0-9]{1,2})" step="0.01" placeholder="Enter Salary" required>
-                        <div class="text-danger" *ngIf="form.controls.salary.invalid && (form.controls.salary.dirty || form.controls.salary.touched)">
-                            <p *ngIf="form.controls.salary.errors.required">Please enter salary</p>
-                            <p *ngIf="form.controls.salary.errors.pattern">Salary Should be like 12.50</p>
+                            }" pattern="[0-9]+[.]([0-9]{1,2})" placeholder="Enter Salary" required>
+                        <div class="text-danger d-none" 
+                            [ngClass]="{
+                                'd-block': form.controls.salary.invalid && (form.controls.salary.dirty || form.controls.salary.touched)
+                            }">
+                            <p [hidden]="!form.controls.salary.errors?.required">Please enter salary</p>
+                            <p [hidden]="!form.controls.salary.errors?.pattern">Salary Should be like 12.50</p>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{model_header}}</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
+</perfect-scrollbar>

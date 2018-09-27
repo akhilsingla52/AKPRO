@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from './question.service';
-import { CategoryService } from '../category/category.service';
 import { Question } from '../../shared/models/Question';
 import { Category } from '../../shared/models/Category';
-import { SweetAlertPopUp } from '../../shared/utils/SweetAlertPopUp';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import SweetAlertPopUp from '../../shared/utils/SweetAlertPopUp';
 declare let $: any;
 
 @Component({
@@ -13,14 +12,14 @@ declare let $: any;
     templateUrl: './question.view.html',
 })
 
-export class QuestionComponent extends SweetAlertPopUp implements OnInit {
+export class QuestionComponent implements OnInit {
     form: FormGroup;
     questions: Question[] = [];
     categories: Category[] = [];
     model_header: string = "";
     questionOptions: string[] = [];
 
-    constructor(private questionService: QuestionService) { super(); }
+    constructor(private questionService: QuestionService) { }
 
     ngOnInit() {
         this.formValidations();
@@ -30,11 +29,11 @@ export class QuestionComponent extends SweetAlertPopUp implements OnInit {
     formValidations() {
         this.form = new FormGroup({
             id: new FormControl(''),
-            category_id: new FormControl('0', {
+            category_id: new FormControl( 0, {
                 validators: Validators.required,
                 updateOn: 'change'
             }),
-            category_name: new FormControl(''),
+            category_name: new FormControl(),
             question: new FormControl('', {
                 validators: Validators.required,
                 updateOn: 'change'
@@ -54,32 +53,26 @@ export class QuestionComponent extends SweetAlertPopUp implements OnInit {
     }
 
     getAllQuestions() {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.questionService.getAllQuestions()
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     this.questions = res.data as Question[];
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
                 }
             );
         this.form.reset();
     }
 
     getAllCategories() {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.questionService.getAllCategories()
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     this.categories = res.data as Category[];
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
                 }
             );
     }
@@ -102,52 +95,43 @@ export class QuestionComponent extends SweetAlertPopUp implements OnInit {
     addUpdateQuestion() {
         if(this.form.value.optionValue!="")
             this.form.value.options = this.form.value.optionValue.split("\n");
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
         if(this.form.value.id == undefined || this.form.value.id == 0) {
             this.questionService.addQuestion(this.form.value)
-                .then(
+                .subscribe(
                     res => {
-                        this.close();
+                        SweetAlertPopUp.close();
                         $('#addUpdateModel').modal('toggle');
                         this.getAllQuestions();
 
-                        this.successPopUp(res.message);
-                    }, error => {
-                        this.close();
-                        this.errorPopUp();
+                        SweetAlertPopUp.successPopUp(res.message);
                     }
                 );
         } else {
             this.questionService.updateQuestion(this.form.value)
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     $('#addUpdateModel').modal('toggle');
                     this.getAllQuestions();
 
-                    this.successPopUp(res.message);
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
+                    SweetAlertPopUp.successPopUp(res.message);
                 }
             );
         }
     }
 
     deleteQuestionById(jobId, index) {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.questionService.deleteQuestionById(jobId)
-            .then(
+            .subscribe(
                 res => {
                     this.questions.splice(index,1);
-                    this.close();
+                    SweetAlertPopUp.close();
                     //this.getAllQuestions();
 
-                    this.successPopUp(res.message);
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
+                    SweetAlertPopUp.successPopUp(res.message);
                 }
             );
     }

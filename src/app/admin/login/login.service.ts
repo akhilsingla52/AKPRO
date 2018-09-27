@@ -7,16 +7,9 @@ export class LoginService {
  
     constructor(private http: HttpClient) { }
 
-    // getAllUserQuiz(){
-    //     return this.http.get(`api/getAllUserQuiz`)
-    //     .toPromise()
-    //     .then(Response =>Response.json().result )
-    //     .catch(this.handleError)
+    // login(){
+    //     return this.http.get(`api/login`)
+    //     .pipe( map( res => res ) );
     // }
-
-    private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-  }
     
 }

@@ -1,13 +1,26 @@
-import { ErrorHandler, Injectable } from "@angular/core";
-import 'rxjs/add/operator/toPromise';
+import { ErrorHandler, Injectable, Injector } from "@angular/core";
+import { Router } from "@angular/router";
+import { HttpErrorResponse } from "@angular/common/http";   
 
-import { SweetAlertPopUp } from "../utils/SweetAlertPopUp";
+import SweetAlertPopUp from "../utils/SweetAlertPopUp";
 
 @Injectable()
-export class MyHttpErrorHandler extends SweetAlertPopUp implements ErrorHandler {
-    handleError(error: any): Promise<any> {
-        this.error(error);
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+export class MyHttpErrorHandler implements ErrorHandler {
+    
+    constructor(private injector:Injector) { }
+
+    handleError(error: any) {
+        const router = this.injector.get(Router);
+        console.log('Request URL: ${router.url}');
+        
+        if(error instanceof HttpErrorResponse) {
+            console.error('Backend returned status code: ', error.status);
+            console.error('Response body: ', error.message);
+        } else {
+            console.error('An error occurred: ', error.message);
+            
+        }
+
+        SweetAlertPopUp.error(error);
     }
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes }  from '@angular/router';
-import { XHRBackend, RequestOptions } from '@angular/http';
 
 import { CategoryComponent } from '../category/category.component';
 import { CompanyComponent } from '../company/company.component';

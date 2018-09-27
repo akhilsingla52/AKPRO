@@ -46,7 +46,7 @@
                     <a class='btn btn-primary text-white' data-toggle="modal" data-target="#addUpdateModel" (click)="openUpdateModel(company.id)">
                         <em class='fa fa-pencil'></em>
                     </a>
-                    <a class='btn btn-danger text-white' (click)="deleteCompanyById(company.id, i)">
+                    <a class='btn btn-danger text-white ml-2' (click)="deleteCompanyById(company.id, i)">
                         <em class='fa fa-trash'></em>
                     </a>
                 </td>
@@ -56,7 +56,7 @@
 </div>
 
 <!-- Read More -->
-<div class="modal fade" id="readMore" role="dialog" data-backdrop="static" data-keyboard="false">
+<perfect-scrollbar class="modal fade" id="readMore" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -68,10 +68,10 @@
             </div>
         </div>
     </div>
-</div>
+</perfect-scrollbar>
 
 <!-- Create Update Modal -->
-<div class="modal fade" id="addUpdateModel" role="dialog" data-backdrop="static" data-keyboard="false">
+<perfect-scrollbar class="modal fade" id="addUpdateModel" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header alert-info">
@@ -89,7 +89,10 @@
                                         'is-valid': form.controls.company_name.valid && (form.controls.company_name.dirty || form.controls.company_name.touched),
                                         'is-invalid': form.controls.company_name.invalid && (form.controls.company_name.dirty || form.controls.company_name.touched)
                                     }" placeholder="Enter Company Name" required>
-                            <div class="text-danger" *ngIf="form.controls.company_name.invalid && (form.controls.company_name.dirty || form.controls.company_name.touched)">
+                            <div class="text-danger d-none" 
+                                [ngClass]="{
+                                    'd-block': form.controls.company_name.invalid && (form.controls.company_name.dirty || form.controls.company_name.touched)
+                                }">
                                 <p>Please enter company name</p>
                             </div>
                         </div>
@@ -101,7 +104,10 @@
                                 'is-valid': form.controls.website.valid && (form.controls.website.dirty || form.controls.website.touched),
                                 'is-invalid': form.controls.website.invalid && (form.controls.website.dirty || form.controls.website.touched)
                             }" placeholder="Enter Website" required>
-                            <div class="text-danger" *ngIf="form.controls.website.invalid && (form.controls.website.dirty || form.controls.website.touched)">
+                            <div class="text-danger d-none" 
+                                [ngClass]="{
+                                    'd-block': form.controls.website.invalid && (form.controls.website.dirty || form.controls.website.touched)
+                                }">
                                 <p>Please enter website</p>
                             </div>
                         </div>
@@ -114,7 +120,10 @@
                             'is-valid': form.controls.description.valid && (form.controls.description.dirty || form.controls.description.touched),
                             'is-invalid': form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)
                         }" placeholder="Enter Description" rows="3" style="resize: none" required></textarea>
-                        <div class="text-danger" *ngIf="form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)">
+                        <div class="text-danger d-none" 
+                            [ngClass]="{
+                                'd-block': form.controls.description.invalid && (form.controls.description.dirty || form.controls.description.touched)
+                            }">
                             <p>Please enter description</p>
                         </div>
                     </div>
@@ -127,7 +136,10 @@
                             'is-invalid': form.controls.image_url.invalid && (form.controls.image_url.dirty || form.controls.image_url.touched)
                         }" placeholder="Image Name With Exension" required>
 
-                        <div class="text-danger" *ngIf="form.controls.image_url.invalid && (form.controls.image_url.dirty || form.controls.image_url.touched)">
+                        <div class="text-danger d-none" 
+                            [ngClass]="{
+                                'd-block': form.controls.image_url.invalid && (form.controls.image_url.dirty || form.controls.image_url.touched)
+                            }">
                             <p>Please enter image name</p>
                         </div>
                     </div>
@@ -147,10 +159,10 @@
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-success" [disabled]="!form.valid">{{model_header}}</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
+</perfect-scrollbar>

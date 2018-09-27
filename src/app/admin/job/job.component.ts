@@ -3,9 +3,9 @@ import { Company } from '../../shared/models/Company';
 import { JobService } from './job.service';
 import { Job } from '../../shared/models/Job';
 import { CompanyService } from '../company/company.service';
-import { SweetAlertPopUp } from '../../shared/utils/SweetAlertPopUp';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import SweetAlertPopUp from '../../shared/utils/SweetAlertPopUp';
 declare let $: any;
 
 @Component({
@@ -13,13 +13,13 @@ declare let $: any;
     templateUrl: './job.view.html',
 })
 
-export class JobComponent extends SweetAlertPopUp implements OnInit {
+export class JobComponent implements OnInit {
     form: FormGroup;
     jobs: Job[] = [];
     companies: Company[] = [];
     model_header:string = "";
 
-    constructor(private jobService: JobService, private companyService: CompanyService) { super(); }
+    constructor(private jobService: JobService, private companyService: CompanyService) { }
 
     ngOnInit() {
         this.formValidations();
@@ -60,32 +60,26 @@ export class JobComponent extends SweetAlertPopUp implements OnInit {
     }
 
     getAllJobs() { 
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.jobService.getAllJobs()
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     this.jobs = res.data as Job[];
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
                 }
             );
         this.form.reset();
     }
 
     getAllCompanies() {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.companyService.getAllCompanies()
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     this.companies = res.data as Company[];
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
                 }
             );
     }
@@ -104,52 +98,43 @@ export class JobComponent extends SweetAlertPopUp implements OnInit {
     }
 
     addUpdateJob() {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
         if(this.form.value.id == undefined || this.form.value.id == 0) {
             this.jobService.addJob(this.form.value)
-                .then(
+                .subscribe(
                     res => {
-                        this.close();
+                        SweetAlertPopUp.close();
                         $('#addUpdateModel').modal('toggle');
                         this.getAllJobs();
 
-                        this.successPopUp(res.message);
-                    }, error => {
-                        this.close();
-                        this.errorPopUp();
+                        SweetAlertPopUp.successPopUp(res.message);
                     }
                 );
         } else {
             this.jobService.updateJob(this.form.value)
-            .then(
+            .subscribe(
                 res => {
-                    this.close();
+                    SweetAlertPopUp.close();
                     $('#addUpdateModel').modal('toggle');
                     this.getAllJobs();
 
-                    this.successPopUp(res.message);
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
+                    SweetAlertPopUp.successPopUp(res.message);
                 }
             );
         }
     }
 
     deleteJobById(jobId, index) {
-        this.showLoading();
+        SweetAlertPopUp.showLoading();
 
         this.jobService.deleteJobById(jobId)
-            .then(
+            .subscribe(
                 res => {
                     this.jobs.splice(index,1);
-                    this.close();
+                    SweetAlertPopUp.close();
                     //this.getAllJobs();
 
-                    this.successPopUp(res.message);
-                }, error => {
-                    this.close();
-                    this.errorPopUp();
+                    SweetAlertPopUp.successPopUp(res.message);
                 }
             );
     }

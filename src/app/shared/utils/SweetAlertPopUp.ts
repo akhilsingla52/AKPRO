@@ -1,11 +1,11 @@
 // declare let swal: any;
 import swal from 'sweetalert2';
 
-export class SweetAlertPopUp {
+export default class SweetAlertPopUp {
 
     constructor() {}
     
-    public showLoading() {
+    public static showLoading() {
         swal({
             title: 'Loading...',
             allowOutsideClick: false,
@@ -14,11 +14,11 @@ export class SweetAlertPopUp {
         swal.showLoading();
     }
 
-    public close() {
+    public static close() {
         swal.close();
     }
 
-    public errorPopUp() {
+    public static errorPopUp() {
         swal({
             title: "some error occur",
             type: "error",
@@ -29,7 +29,7 @@ export class SweetAlertPopUp {
         })
     }
 
-    public error(message) {
+    public static error(message) {
         swal({
             title: message,  
             showConfirmButton: false,
@@ -39,7 +39,7 @@ export class SweetAlertPopUp {
         })
     }
 
-    public successPopUp(message) {
+    public static successPopUp(message) {
         swal({
             title: message,
             type: "success",
