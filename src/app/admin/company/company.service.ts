@@ -8,8 +8,8 @@ export class CompanyService {
  
     constructor(private http: HttpClient) { }
 
-    getAllCompanies(){
-        return this.http.get<any>(`company/getAll`)
+    getAllCompanies(page, size, sortby, sortorder, search){
+        return this.http.get<any>('company/getAllCompanies?page='+page+'&size='+size+'&sortby='+sortby+'&sortorder='+sortorder+'&search='+search)
             .pipe( map( res => res ) );
     }
 

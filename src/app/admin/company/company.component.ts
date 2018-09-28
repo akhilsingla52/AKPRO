@@ -5,6 +5,7 @@ import { APP_IMAGE_URL } from '../../shared/utils/Const'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import SweetAlertPopUp from '../../shared/utils/SweetAlertPopUp';
+import Utils from '../../shared/utils/Utils';
 declare var $: any;
 
 @Component({
@@ -18,12 +19,14 @@ export class CompanyComponent implements OnInit {
     model_header:string = "";
     appImageUrl:string = APP_IMAGE_URL;
     description:string = "";
+    params: any = {};
+    count: number = 0;
 
     constructor(private companyService: CompanyService) { }
 
     ngOnInit() { 
         this.formValidations();
-        this.getAllCompanies();
+        this.reset();
     }
 
     formValidations() {
@@ -54,15 +57,42 @@ export class CompanyComponent implements OnInit {
     getAllCompanies() {
         SweetAlertPopUp.showLoading();
 
-        this.companyService.getAllCompanies()
+        //page, size, sortby, sortorder, search
+        this.companyService.getAllCompanies(this.params.page, this.params.size, this.params.sortby, this.params.sortorder,Utils.convertToHex(this.params.search.trim()))
             .subscribe(
-                success => {
+                res => {
                     SweetAlertPopUp.close();
-                    this.companies = success.data as Company[];
+                    this.companies = res.data as Company[];
+                    this.count = res.count as number;
                 }
             );
 
            this.form.reset();
+    }
+
+    orderBy(sortBy) {
+        if(sortBy!= this.params.sortby)
+            this.params.sortorder="DESC"
+        this.params.sortby=sortBy;
+
+        if(this.params.sortorder=="ASC")
+            this.params.sortorder="DESC"
+        else
+            this.params.sortorder="ASC"
+
+        this.getAllCompanies();
+    }
+
+    reset() {
+        this.params = {
+            'page':'1',
+            'size':'5',
+            'sortby': '',
+            'sortorder': '',
+            'search':''
+        };
+
+        this.getAllCompanies();
     }
 
     getCompanyById(companyId) {

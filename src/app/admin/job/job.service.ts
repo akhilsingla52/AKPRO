@@ -8,8 +8,13 @@ export class JobService {
  
     constructor(private http: HttpClient) { }
 
-    getAllJobs() {
-        return this.http.get<any>(`job/getAll`)
+    getAllJobs(page, size, sortby, sortorder, search) {
+        return this.http.get<any>('job/getAllJobs?page='+page+'&size='+size+'&sortby='+sortby+'&sortorder='+sortorder+'&search='+search)
+            .pipe( map( res => res ) );
+    }
+
+    getAllCompanies() {
+        return this.http.get<any>(`job/getAllCompanies`)
             .pipe( map( res => res ) );
     }
 

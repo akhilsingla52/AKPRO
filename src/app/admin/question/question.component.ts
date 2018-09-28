@@ -5,6 +5,7 @@ import { Category } from '../../shared/models/Category';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import SweetAlertPopUp from '../../shared/utils/SweetAlertPopUp';
+import Utils from '../../shared/utils/Utils';
 declare let $: any;
 
 @Component({
@@ -18,12 +19,14 @@ export class QuestionComponent implements OnInit {
     categories: Category[] = [];
     model_header: string = "";
     questionOptions: string[] = [];
+    params: any = {};
+    count: number = 0;
 
     constructor(private questionService: QuestionService) { }
 
     ngOnInit() {
         this.formValidations();
-        this.getAllQuestions();
+        this.reset();
     }
 
     formValidations() {
@@ -55,14 +58,41 @@ export class QuestionComponent implements OnInit {
     getAllQuestions() {
         SweetAlertPopUp.showLoading();
 
-        this.questionService.getAllQuestions()
+        //page, size, sortby, sortorder, search
+        this.questionService.getAllQuestions(this.params.page, this.params.size, this.params.sortby, this.params.sortorder,Utils.convertToHex(this.params.search.trim()))
             .subscribe(
                 res => {
                     SweetAlertPopUp.close();
                     this.questions = res.data as Question[];
+                    this.count = res.count as number;
                 }
             );
         this.form.reset();
+    }
+
+    orderBy(sortBy) {
+        if(sortBy!= this.params.sortby)
+            this.params.sortorder="DESC"
+        this.params.sortby=sortBy;
+
+        if(this.params.sortorder=="ASC")
+            this.params.sortorder="DESC"
+        else
+            this.params.sortorder="ASC"
+
+        this.getAllQuestions();
+    }
+
+    reset() {
+        this.params = {
+            'page':'1',
+            'size':'5',
+            'sortby': '',
+            'sortorder': '',
+            'search':''
+        };
+
+        this.getAllQuestions();
     }
 
     getAllCategories() {

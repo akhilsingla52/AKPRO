@@ -17,10 +17,9 @@ export class MyHttpErrorHandler implements ErrorHandler {
             console.error('Backend returned status code: ', error.status);
             console.error('Response body: ', error.message);
         } else {
-            console.error('An error occurred: ', error.message);
-            
+            console.error('An error occurred: ', error.message);  
         }
 
-        SweetAlertPopUp.error(error);
+        //SweetAlertPopUp.error(error);
     }
 }

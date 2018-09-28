@@ -8,13 +8,13 @@ export class QuestionService {
  
     constructor(private http: HttpClient) { }
 
-    getAllCategories() {
-        return this.http.get<any>('questionCategory/getAllCategories')
+    getAllQuestions(page, size, sortby, sortorder, search) {
+        return this.http.get<any>('questionBank/getAllQuestions?page='+page+'&size='+size+'&sortby='+sortby+'&sortorder='+sortorder+'&search='+search)
             .pipe( map( res => res ) );
     }
 
-    getAllQuestions() {
-        return this.http.get<any>(`questionBank/getAll`)
+    getAllCategories() {
+        return this.http.get<any>('questionBank/getAllCategories')
             .pipe( map( res => res ) );
     }
 

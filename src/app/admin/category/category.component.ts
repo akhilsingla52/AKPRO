@@ -75,6 +75,8 @@ export class CategoryComponent implements OnInit {
             'sortorder': '',
             'search':''
         };
+
+        this.getAllCategories();
     }
 
     getCategoryById(categoryId) {

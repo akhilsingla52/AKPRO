@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from '../../shared/models/Company';
 import { JobService } from './job.service';
 import { Job } from '../../shared/models/Job';
-import { CompanyService } from '../company/company.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import SweetAlertPopUp from '../../shared/utils/SweetAlertPopUp';
+import Utils from '../../shared/utils/Utils';
 declare let $: any;
 
 @Component({
@@ -18,12 +18,14 @@ export class JobComponent implements OnInit {
     jobs: Job[] = [];
     companies: Company[] = [];
     model_header:string = "";
+    params: any = {};
+    count: number = 0;
 
-    constructor(private jobService: JobService, private companyService: CompanyService) { }
+    constructor(private jobService: JobService) { }
 
     ngOnInit() {
         this.formValidations();
-        this.getAllJobs();
+        this.reset();
     }
 
     formValidations() {
@@ -62,20 +64,47 @@ export class JobComponent implements OnInit {
     getAllJobs() { 
         SweetAlertPopUp.showLoading();
 
-        this.jobService.getAllJobs()
+        //page, size, sortby, sortorder, search
+        this.jobService.getAllJobs(this.params.page, this.params.size, this.params.sortby, this.params.sortorder,Utils.convertToHex(this.params.search.trim()))
             .subscribe(
                 res => {
                     SweetAlertPopUp.close();
                     this.jobs = res.data as Job[];
+                    this.count = res.count as number;
                 }
             );
         this.form.reset();
     }
 
+    orderBy(sortBy) {
+        if(sortBy!= this.params.sortby)
+            this.params.sortorder="DESC"
+        this.params.sortby=sortBy;
+
+        if(this.params.sortorder=="ASC")
+            this.params.sortorder="DESC"
+        else
+            this.params.sortorder="ASC"
+
+        this.getAllJobs();
+    }
+
+    reset() {
+        this.params = {
+            'page':'1',
+            'size':'5',
+            'sortby': '',
+            'sortorder': '',
+            'search':''
+        };
+
+        this.getAllJobs();
+    }
+
     getAllCompanies() {
         SweetAlertPopUp.showLoading();
 
-        this.companyService.getAllCompanies()
+        this.jobService.getAllCompanies()
             .subscribe(
                 res => {
                     SweetAlertPopUp.close();

@@ -8,8 +8,8 @@ export class TestService {
  
     constructor(private http: HttpClient) { }
 
-    getAllExamDetails(){
-        return this.http.get<any>(`exam/getAll`)
+    getAllExamDetails(page, size, sortby, sortorder, search){
+        return this.http.get<any>('exam/getAllExamDetails?page='+page+'&size='+size+'&sortby='+sortby+'&sortorder='+sortorder+'&search='+search)
             .pipe( map( res => res ) );
     }
     

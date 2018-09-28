@@ -7,8 +7,8 @@ export class UserService {
  
     constructor(private http: HttpClient) { }
 
-    getAllUser(){
-        return this.http.get<any>(`user/getAll`)
+    getAllUser(page, size, sortby, sortorder, search){
+        return this.http.get<any>('user/getAllUsers?page='+page+'&size='+size+'&sortby='+sortby+'&sortorder='+sortorder+'&search='+search)
             .pipe( map( res => res ) );
     }
     

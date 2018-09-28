@@ -81,7 +81,7 @@ ol {
 
 .form-control-feedback {
     position: absolute;
-    z-index: 10;
+    z-index: 9;
     color: gray;
     padding: 0.7rem 0.4rem;
 }
@@ -95,4 +95,10 @@ ol {
     z-index:10;
 }
 
-.ps__rail-x, .ps__rail-y { z-index:20; }
+.ps__rail-x, .ps__rail-y { 
+    z-index:20; 
+}
+
+.hand-pointer {
+    cursor: pointer;
+}

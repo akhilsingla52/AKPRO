@@ -5,14 +5,55 @@
 </div>
 
 <div class="panel-body">
+    <div class="input-group mb-4">
+        <span class="fa fa-search form-control-feedback" (click)="getAllUsers()"></span>
+        <input class="form-control form-control-search col-sm-10 mr-2" type="text" name="search" placeholder="Search" [(ngModel)]="params.search" (keyup.enter)="getAllUsers()">
+        <button class="btn btn-primary col-sm-1 mr-2" (click)="getAllUsers()">Search</button>
+        <button class="btn btn-primary col-sm-1" (click)="reset()">Reset</button>
+    </div>
+
+    <ngb-pagination *ngIf="count!=0" class="pull-right" [(collectionSize)]="count" [(pageSize)]="params.size" [(page)]="params.page" 
+        [maxSize]="5" [ellipses]="false" [boundaryLinks]="true" size="sm"
+        (click)="getAllUsers()"></ngb-pagination>
+
     <table class="table table-striped table-condensed table-hover">
         <thead>
             <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Role</th>
-                <th>Created Date</th>
+                <th class="hand-pointer" (click)="orderBy('userName')">
+                    Username
+                    <i class="fa fa-sort" [ngClass]="{
+                        'fa-sort-up': params.sortby=='userName' && params.sortorder=='ASC',
+                        'fa-sort-down': params.sortby=='userName' && params.sortorder=='DESC'
+                    }"></i>
+                </th>
+                <th class="hand-pointer" (click)="orderBy('email')">
+                    Email
+                    <i class="fa fa-sort" [ngClass]="{
+                        'fa-sort-up': params.sortby=='email' && params.sortorder=='ASC',
+                        'fa-sort-down': params.sortby=='email' && params.sortorder=='DESC'
+                    }"></i>
+                </th>
+                <th class="hand-pointer" (click)="orderBy('mobile')">
+                    Mobile
+                    <i class="fa fa-sort" [ngClass]="{
+                        'fa-sort-up': params.sortby=='mobile' && params.sortorder=='ASC',
+                        'fa-sort-down': params.sortby=='mobile' && params.sortorder=='DESC'
+                    }"></i>
+                </th>
+                <th class="hand-pointer" (click)="orderBy('role')">
+                    Role
+                    <i class="fa fa-sort" [ngClass]="{
+                        'fa-sort-up': params.sortby=='role' && params.sortorder=='ASC',
+                        'fa-sort-down': params.sortby=='role' && params.sortorder=='DESC'
+                    }"></i>
+                </th>
+                <th class="hand-pointer" (click)="orderBy('timeCreated')">
+                    Created Date
+                    <i class="fa fa-sort" [ngClass]="{
+                        'fa-sort-up': params.sortby=='timeCreated' && params.sortorder=='ASC',
+                        'fa-sort-down': params.sortby=='timeCreated' && params.sortorder=='DESC'
+                    }"></i>
+                </th>
             </tr>
         </thead>
         <tbody>
