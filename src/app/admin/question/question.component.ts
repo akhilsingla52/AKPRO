@@ -21,6 +21,7 @@ export class QuestionComponent implements OnInit {
     questionOptions: string[] = [];
     params: any = {};
     count: number = 0;
+    option: string = '';
 
     constructor(private questionService: QuestionService) { }
 
@@ -42,10 +43,6 @@ export class QuestionComponent implements OnInit {
                 updateOn: 'change'
             }),
             options: new FormControl([]),
-            optionValue: new FormControl('', {
-                validators: Validators.required,
-                updateOn: 'change'
-            }),
             answer: new FormControl('', {
                 validators: Validators.required,
                 updateOn: 'change'
@@ -109,22 +106,32 @@ export class QuestionComponent implements OnInit {
 
     openAddModel() {
         this.model_header = "Add";
+        this.option = '';
         this.getAllCategories();
         this.form.reset();
     }
 
     openUpdateModel(question: Question) {
         this.model_header = "Update";
-        this.getAllCategories();
-        var editQuestion:any = question;
-        console.log(editQuestion);
-        editQuestion.optionValue = editQuestion.options.join("\n");
-        this.form.setValue(editQuestion);
+        this.option = '';
+        this.getAllCategories();    
+        this.form.setValue(question);
+
+    }
+
+    addOption() { 
+        if(this.form.get('options').value==null || this.form.get('options').value==undefined)
+            this.form.get('options').setValue([]);
+        
+        this.form.get('options').value.push(this.option);
+        this.option = '';
+    }
+
+    deleteOption(index) {
+        this.form.get('options').value.splice(index, 1);
     }
 
     addUpdateQuestion() {
-        if(this.form.value.optionValue!="")
-            this.form.value.options = this.form.value.optionValue.split("\n");
         SweetAlertPopUp.showLoading();
         if(this.form.value.id == undefined || this.form.value.id == 0) {
             this.questionService.addQuestion(this.form.value)

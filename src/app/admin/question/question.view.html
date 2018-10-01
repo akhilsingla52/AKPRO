@@ -150,16 +150,18 @@
 
                     <div class="form-group">
                         <label for="Option">Options</label>
-                        <textarea type="text" class="form-control" name="optionValue" formControlName="optionValue"
-                            [ngClass]="{
-                                'is-valid': form.controls.optionValue.valid && (form.controls.optionValue.dirty || form.controls.optionValue.touched),
-                                'is-invalid': form.controls.optionValue.invalid && (form.controls.optionValue.dirty || form.controls.optionValue.touched)
-                            }" rows="3" style="resize:none" placeholder="Enter Options" required></textarea>
+                        <div>
+                            <span class="badge badge-primary mr-2 mt-2" *ngFor="let option of form.get('options').value; let i = index">
+                                {{option}} <i class="fa fa-close" (click)="deleteOption(i)"></i>
+                            </span>
+                            <input type="text" class="form-control col-sm-10 d-inline-block mr-4 mt-2" name="option" [(ngModel)]="option" [ngModelOptions]="{standalone: true}">
+                            <span class="option-add-button" (click)="addOption()"><i class="fa fa-plus text-white"></i></span>
+                        </div>
                         <div class="text-danger d-none" 
                             [ngClass]="{
-                                'd-block': form.controls.optionValue.invalid && (form.controls.optionValue.dirty || form.controls.optionValue.touched)
+                                'd-block': form.value.options?.length<2
                             }">
-                            <p>Please enter options</p>
+                            <p>Please enter minimum 2 options</p>
                         </div>
                     </div>
 
@@ -179,7 +181,7 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">{{model_header}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!form.valid || form.value.options?.length<2">{{model_header}}</button>
                         <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
