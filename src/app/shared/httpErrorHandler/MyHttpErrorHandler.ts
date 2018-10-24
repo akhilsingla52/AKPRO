@@ -12,6 +12,8 @@ export class MyHttpErrorHandler implements ErrorHandler {
     handleError(error: any) {
         const router = this.injector.get(Router);
         console.log('Request URL: ${router.url}');
+        SweetAlertPopUp.close();
+        SweetAlertPopUp.error("some error occur");
         
         if(error instanceof HttpErrorResponse) {
             console.error('Backend returned status code: ', error.status);

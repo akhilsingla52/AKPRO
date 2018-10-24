@@ -1,4 +1,6 @@
-yarn add @angular/animations @angular/common @angular/compiler @angular/core @angular/forms @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade core-js rxjs rxjs-compat zone.js
+yarn add @angular/animations @angular/common @angular/compiler @angular/core @angular/forms @angular/http
+yarn add @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade
+yarn add core-js rxjs rxjs-compat zone.js
 	
 yarn add ngx-perfect-scrollbar
 

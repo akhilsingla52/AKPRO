@@ -5,6 +5,8 @@ import { RouterModule, Routes }  from '@angular/router';
 import { PageNotFoundComponent } from '../PageNotFound/pagenotfound.component';
 import { HeaderComponent } from '../header/header.component';
 
+import { HeaderService } from '../header/header.service';
+
 import { MyHttpInterceptor } from '../httpInterceptor/MyHttpInterceptor';
 import { MyHttpErrorHandler } from '../httpErrorHandler/MyHttpErrorHandler';
 // import { AuthGuard } from '../../user-dashboard/authGuard/authguard.service';
@@ -24,6 +26,7 @@ const sharedRoutes: Routes = [
 @NgModule({
     imports: [ RouterModule.forRoot(sharedRoutes, {useHash: true}) ],
     providers: [
+        HeaderService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: MyHttpInterceptor,

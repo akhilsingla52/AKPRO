@@ -9,14 +9,25 @@
         <div class="card-body">
             <div *ngIf="errorMsg" id="login_alert" class="alert alert-danger col-sm-12">{{errorMsg}}</div>
 
-            <form class="form-horizontal" (ngSubmit)="login()">
+            <form class="form-horizontal" role="form" [formGroup]="form" (ngSubmit)="login()" novalidate>
                 <div class="input-group mb-4">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <i class="fa fa-user"></i>
                         </div>
                     </div>
-                    <input type="text" class="form-control" name="username" placeholder="username or email" required>
+                    <input type="text" class="form-control" name="username" placeholder="username or email" 
+                        formControlName="user_name"
+                        [ngClass]="{
+                            'is-valid': form.controls.user_name.valid && (form.controls.user_name.dirty || form.controls.user_name.touched),
+                            'is-invalid': form.controls.user_name.invalid && (form.controls.user_name.dirty || form.controls.user_name.touched)
+                        }" required>
+                    <div class="text-danger d-none" 
+                        [ngClass]="{
+                            'd-block': form.controls.user_name.invalid && (form.controls.user_name.dirty || form.controls.user_name.touched)
+                        }">
+                        <p>Please enter username</p>
+                    </div>
                 </div>
 
                 <div class="input-group mb-4">
@@ -25,11 +36,22 @@
                             <i class="fa fa-lock"></i>
                         </div>
                     </div>
-                    <input type="password" class="form-control" name="password" placeholder="password" required>
+                    <input type="password" class="form-control" name="password" placeholder="password" 
+                        formControlName="password"
+                        [ngClass]="{
+                            'is-valid': form.controls.password.valid && (form.controls.password.dirty || form.controls.password.touched),
+                            'is-invalid': form.controls.password.invalid && (form.controls.password.dirty || form.controls.password.touched)
+                        }" required>
+                    <div class="text-danger d-none" 
+                        [ngClass]="{
+                            'd-block': form.controls.password.invalid && (form.controls.password.dirty || form.controls.password.touched)
+                        }">
+                        <p>Please enter password</p>
+                    </div>
                 </div>
 
                 <div class="form-group  mt-4">
-                    <input class="btn btn-success" type="submit" value="Login" />
+                    <input class="btn btn-success" type="submit" value="Login" [disabled]="!form.valid" />
                 </div>
             </form>
         </div>

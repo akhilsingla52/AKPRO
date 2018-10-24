@@ -1,8 +1,8 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, 
-            HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
-import { APP_URL } from '../utils/Const';
+            HttpRequest, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { APP_URL, TOKEN_PREFIX } from '../utils/Const';
 import 'rxjs/add/operator/do';
 
 @Injectable()
@@ -11,10 +11,13 @@ export class MyHttpInterceptor implements HttpInterceptor {
     constructor() { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        var token = TOKEN_PREFIX + localStorage.getItem("token");
         const authReq = req.clone({ 
-            headers: req.headers.set("Authorization", "auth-token"),
-            url: (APP_URL + req.url)
+            url: (APP_URL + req.url),
+            headers: req.headers.set('Authorization', token)
         });
+
+        console.log('Intercepted HTTP call', authReq);
 
         return next
             .handle(authReq)
